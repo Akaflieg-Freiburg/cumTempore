@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ site.Title }} – {{ site.Params.description }}{{ else }}{{ .Title }} – {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ site.Params.description }}">
+  <link rel="icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+</head>
+<body>
+  {{ partial "nav.html" . }}
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer>
+    <p>cumTempore is free software, published under the
+      <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License</a>
+      by <a href="https://akaflieg-freiburg.de">Akaflieg Freiburg</a>.
+      Source code on <a href="{{ site.Params.github }}">GitHub</a>.</p>
+  </footer>
+</body>
+</html>

@@ -30,7 +30,57 @@ cmake --build --preset linux-debug --target all_qmllint            # QML lint
 build/linux-debug/src/cumtempore
 ```
 
-Other presets: `linux-release`, `android`, `wasm`. Build output goes to `build/<preset>/`.
+Other presets: `linux-release`, `android` (signed release APK/AAB), `android-debug`
+(debug-signed, installable), `wasm`. Build output goes to `build/<preset>/`. The WASM kit
+needs exactly the Emscripten version Qt was built with (Qt 6.12: 5.0.5); CMake stops on a
+mismatch.
+
+Other targets: `update_translations` (lupdate, no source locations), `generatedSources`
+(renders all icons from `metadata/*.svg`; needs rsvg-convert and Pillow; results are
+committed), `apk`/`aab` on Android.
+
+## Checking the UI without a display
+
+Developer aids in `src/main.cpp`, used for visual checks and store screenshots:
+
+```bash
+QT_QPA_PLATFORM=offscreen XDG_CONFIG_HOME=/tmp/cfg \
+  CUMTEMPORE_KEYS="Right 1 3 0 0 0 Return" CUMTEMPORE_SCREENSHOT=/tmp/shot.png \
+  CUMTEMPORE_SCREENSHOT_DELAY=2500 build/linux-debug/src/cumtempore
+```
+
+`CUMTEMPORE_KEYS` replays key presses (QKeySequence names), `CUMTEMPORE_COLOR_SCHEME=dark|light`
+overrides the color scheme. Use a separate `XDG_CONFIG_HOME` so that test runs do not touch
+the real settings. Limitations of the offscreen platform: it ignores the color scheme
+override, and Material popups render without background; use the real platform (Wayland)
+for those. The debug preset uses ASan; leak reports on exit come from Qt's GTK theme plugin.
+
+## Architecture
+
+- `src/main.cpp`: translators, fonts, keep-screen-on, loads `CumTempore/Main.qml`.
+- `src/qml/`: QML module `CumTempore`. `Main.qml` is a plain `Window` (not
+  `ApplicationWindow`, which swallows safe-area margins) with a desktop `MenuBar` or a
+  floating burger menu on mobile/WASM, and a `SwipeView` with `WallClockPage` and
+  `TimerPage`. `Style.qml` is the colour singleton. Menus/dialogs bind palettes explicitly
+  because Qt does not push colour-scheme changes into existing popups.
+- `src/timer/CountdownTimer`: timer logic in C++, unit-tested in `tests/`. Stores the
+  absolute end time in wall-clock milliseconds (monotonic clocks stop while phones sleep).
+- `src/platform/KeepScreenOn_<platform>`: one implementation per OS, chosen in
+  `src/CMakeLists.txt`.
+- Platform files: `src/android/` + `src/AndroidManifest.xml.in` (no `<uses-sdk>`, no
+  `package=`, keep the `%%INSERT_…%%` placeholders; XML comments must not contain `--`),
+  `src/ios/`, `src/macos/`, `src/windows/`, `metadata/` (Linux desktop/AppStream, icon SVGs).
+
+## Release infrastructure
+
+- CI: `.github/workflows/`. `quality.yml` (sanitizer build with warnings as errors, ctest,
+  qmllint, .ts files up to date), one workflow per platform uploading to the
+  `developerBuilds` pre-release, `pages.yml` (WASM + Hugo site, deploys from `main`). The
+  Qt version is pinned in `.github/qt-version`.
+- fastlane: `fastlane/Fastfile`; store texts in `fastlane/metadata/{android,ios}/<locale>/`.
+  The Mac App Store lane needs `src/macos/cumtempore_for_Mac_App_Store.provisionprofile`.
+- Website: Hugo, `website/` (custom minimal layout, no theme). Preview with
+  `cd website && hugo server`.
 
 ## Versioning
 

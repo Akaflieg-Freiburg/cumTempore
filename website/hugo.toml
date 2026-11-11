@@ -1,0 +1,48 @@
+# Homepage of cumTempore, deployed to GitHub Pages by .github/workflows/pages.yml.
+# Local preview: cd website && hugo server
+baseURL = "https://akaflieg-freiburg.github.io/cumTempore/"
+title = "cumTempore"
+languageCode = "en"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+enableRobotsTXT = false
+
+[params]
+description = "A simple clock and timer for keeping time while giving lectures or talks."
+github = "https://github.com/Akaflieg-Freiburg/cumTempore"
+# Path of the WebAssembly app, relative to baseURL. The pages workflow copies
+# the build there; it is not in git.
+app = "app/cumtempore.html"
+
+[menus]
+[[menus.main]]
+name = "Home"
+pageRef = "/"
+weight = 1
+[[menus.main]]
+name = "Download"
+pageRef = "/download"
+weight = 2
+[[menus.main]]
+name = "Privacy"
+pageRef = "/privacy"
+weight = 3
+[[menus.main]]
+name = "Contact"
+pageRef = "/contact"
+weight = 4
+[[menus.main]]
+name = "Acknowledgements"
+pageRef = "/acknowledgements"
+weight = 5
+
+# Icons are generated from metadata/*.svg by the CMake target generatedSources
+[module]
+[[module.mounts]]
+source = "static"
+target = "static"
+[[module.mounts]]
+source = "../generatedSources/web"
+target = "static/images"
+
+[markup.goldmark.renderer]
+unsafe = true

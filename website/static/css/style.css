@@ -1,0 +1,55 @@
+:root {
+  --teal: #008080;
+  --text: #202124;
+  --muted: #5f6368;
+  --background: #ffffff;
+  --surface: #f1f3f4;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --teal: #4db6ac;
+    --text: #eff0f2;
+    --muted: #9aa0a6;
+    --background: #121212;
+    --surface: #1e1e1e;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--background);
+}
+a { color: var(--teal); }
+header { background: var(--teal); }
+@media (prefers-color-scheme: dark) { header { background: #00695c; } }
+nav {
+  max-width: 60rem; margin: 0 auto; padding: 0.5rem 1rem;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem;
+}
+nav a { color: white; text-decoration: none; }
+nav .brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.2rem; }
+nav .brand img { border-radius: 6px; }
+nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 0.3em; }
+main { max-width: 60rem; margin: 0 auto; padding: 1rem; }
+.hero { text-align: center; padding: 2rem 0 1rem; }
+.hero img { border-radius: 20px; }
+.hero h1 { margin: 0.5rem 0 0; font-size: 2.5rem; }
+.tagline { color: var(--muted); font-size: 1.2rem; }
+.button {
+  display: inline-block; margin: 0.25rem; padding: 0.6rem 1.2rem; border-radius: 999px;
+  background: var(--teal); color: white; text-decoration: none; font-weight: 600;
+}
+@media (prefers-color-scheme: dark) { .button { color: black; } }
+.button.secondary { background: var(--surface); color: var(--teal); }
+.with-figure { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; }
+.with-figure article { flex: 1 1 20rem; }
+figure.app { margin: 0 auto; text-align: center; }
+figure.app iframe { border: 1px solid var(--muted); border-radius: 12px; }
+figcaption { color: var(--muted); font-size: 0.9rem; }
+pre { background: var(--surface); padding: 1rem; border-radius: 8px; overflow-x: auto; }
+footer { max-width: 60rem; margin: 2rem auto 0; padding: 1rem; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--surface); }

@@ -1,0 +1,86 @@
+name: Website and WebAssembly app
+
+# Builds the WebAssembly app and the Hugo site in website/, with the app in
+# /app/. Pushes to main deploy to GitHub Pages; everything else only builds.
+# Repository setting required: Pages → Source → "GitHub Actions".
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Read Qt version
+      run: echo "QT_VERSION=$(cat .github/qt-version)" >> $GITHUB_ENV
+    - name: Install Emscripten
+      uses: mymindstorm/setup-emsdk@v14
+      with:
+        # Must match the Emscripten version Qt was built with; Qt 6.12 uses
+        # 5.0.5 (see "Qt for WebAssembly" in the Qt documentation)
+        version: '5.0.5'
+    - name: Install Qt for WebAssembly
+      uses: jurplel/install-qt-action@v4
+      with:
+        cache: true
+        cache-key-prefix: install-qt-action-wasm
+        host: all_os
+        target: wasm
+        arch: wasm_singlethread
+        version: ${{ env.QT_VERSION }}
+        autodesktop: true
+    - name: Install ninja
+      run: sudo apt-get update && sudo apt-get install -y ninja-build
+    - name: Build WebAssembly app
+      run: |
+        # aqt installs the wasm kit without executable bits on bin/ scripts
+        chmod +x "$QT_ROOT_DIR"/bin/*
+        export Qt6_DIR_WASM="$QT_ROOT_DIR"
+        export Qt6_DIR_LINUX="$(dirname "$QT_ROOT_DIR")/gcc_64"
+        cmake --preset wasm
+        cmake --build --preset wasm
+    - name: Install Hugo
+      uses: peaceiris/actions-hugo@v3
+      with:
+        hugo-version: '0.147.9'
+    - name: Build website
+      run: |
+        cd website
+        hugo --minify --destination ../public
+    - name: Add the app to the website
+      run: |
+        mkdir -p public/app
+        cd build/wasm/src
+        cp cumtempore.html cumtempore.js cumtempore.wasm qtloader.js ../../../public/app/
+        # Replace Qt's logo on the loading screen with the program icon
+        cp ../../../metadata/de.akaflieg_freiburg.cavok.cum_tempore.svg ../../../public/app/qtlogo.svg
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: public
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

@@ -1,0 +1,23 @@
+{{ define "main" }}
+<section class="hero">
+  <img src="{{ "images/icon-192.png" | relURL }}" alt="" width="96" height="96">
+  <h1>{{ site.Title }}</h1>
+  <p class="tagline">{{ site.Params.description }}</p>
+  <p class="actions">
+    <a class="button" href="{{ site.Params.app | relURL }}">Open in your browser</a>
+    <a class="button secondary" href="{{ "download" | relURL }}">Download</a>
+  </p>
+</section>
+<div class="with-figure">
+  <article>
+    {{ .Content }}
+  </article>
+  <figure class="app">
+    <iframe src="{{ site.Params.app | relURL }}" width="320" height="480" title="cumTempore" loading="lazy">
+      <p>Your browser cannot show embedded frames. Open the app via
+        <a href="{{ site.Params.app | relURL }}">this link</a>.</p>
+    </iframe>
+    <figcaption>The app runs directly in your web browser</figcaption>
+  </figure>
+</div>
+{{ end }}
