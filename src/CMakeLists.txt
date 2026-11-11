@@ -84,6 +84,16 @@ qt_add_resources(${PROJECT_NAME} "fonts"
         "${PROJECT_SOURCE_DIR}/3rdParty/fonts/B612-Bold.ttf"
 )
 
+# Translations. The .ts files in i18n/ follow APP_LANGUAGES (via
+# I18N_TRANSLATED_LANGUAGES in the top-level CMakeLists.txt). Update them with
+# the target update_translations.
+qt_add_translations(${PROJECT_NAME}
+    TS_FILE_BASE cumtempore
+    TS_FILE_DIR i18n
+    RESOURCE_PREFIX i18n
+    NO_GENERATE_PLURALS_TS_FILE
+)
+
 # Qt Quick Controls looks for this file at :/qtquickcontrols2.conf
 qt_add_resources(${PROJECT_NAME} "controlsconf"
     PREFIX "/"
