@@ -204,7 +204,9 @@ Window {
         SwipeView {
             id: swipeView
 
+            // Leave a strip at the bottom for the page indicator
             anchors.fill: parent
+            anchors.bottomMargin: 20
             focus: true
 
             onCurrentIndexChanged: settings.currentPage = currentIndex
@@ -212,28 +214,41 @@ Window {
             WallClockPage { }
             TimerPage { id: timerPage }
 
-            // Left/right arrow keys switch pages on desktop computers
+            // Keyboard: left/right arrow keys switch pages; the timer page
+            // handles digits, space, enter, escape, …
+            Keys.onPressed: (event) => {
+                if (currentIndex === 1 && (event.modifiers === Qt.NoModifier || event.modifiers === Qt.KeypadModifier))
+                    event.accepted = timerPage.handleKey(event.key)
+            }
             Keys.onLeftPressed: decrementCurrentIndex()
             Keys.onRightPressed: incrementCurrentIndex()
         }
 
-        PageIndicator {
+        // Page indicator. Not a PageIndicator control: that one tries to set
+        // context properties on delegates with required properties and warns.
+        Row {
             anchors.bottom: parent.bottom
+            anchors.bottomMargin: 6
             anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 8
 
-            count: swipeView.count
-            currentIndex: swipeView.currentIndex
-            interactive: true
-            onCurrentIndexChanged: swipeView.setCurrentIndex(currentIndex)
+            Repeater {
+                model: swipeView.count
 
-            delegate: Rectangle {
-                required property int index
+                delegate: Rectangle {
+                    required property int index
 
-                implicitWidth: 8
-                implicitHeight: 8
-                radius: width / 2
-                color: (window.color !== Style.background) ? Style.overtimeText : Style.teal
-                opacity: index === swipeView.currentIndex ? 0.95 : 0.35
+                    width: 8
+                    height: 8
+                    radius: 4
+                    color: (window.color !== Style.background) ? Style.overtimeText : Style.teal
+                    opacity: index === swipeView.currentIndex ? 0.95 : 0.35
+
+                    TapHandler {
+                        margin: 8
+                        onTapped: swipeView.setCurrentIndex(parent.index)
+                    }
+                }
             }
         }
 

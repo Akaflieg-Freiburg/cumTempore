@@ -19,6 +19,8 @@
 #include <QFontDatabase>
 #include <QGuiApplication>
 #include <QIcon>
+#include <QKeyEvent>
+#include <QKeySequence>
 #include <QLibraryInfo>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
@@ -82,14 +84,29 @@ auto main(int argc, char *argv[]) -> int
                      &app, []() { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.loadFromModule("CumTempore", "Main");
 
-    // Developer aid: CUMTEMPORE_SCREENSHOT=<file.png> saves a screenshot of the
-    // main window after a short delay and quits. Used for checking the UI in
-    // headless environments and for producing store screenshots.
+    // Developer aid for checking the UI in headless environments and for
+    // producing store screenshots:
+    //   CUMTEMPORE_KEYS="Right 1 3 0 Return"  key presses sent after startup
+    //   CUMTEMPORE_SCREENSHOT=<file.png>      saves a screenshot and quits
+    //   CUMTEMPORE_SCREENSHOT_DELAY=<ms>      delay before the screenshot
     auto const screenshotPath = qEnvironmentVariable("CUMTEMPORE_SCREENSHOT");
     if (!screenshotPath.isEmpty())
     {
-        QTimer::singleShot(1500, &app, [&engine, screenshotPath]() {
-            if (auto* window = qobject_cast<QQuickWindow*>(engine.rootObjects().value(0)))
+        auto* window = qobject_cast<QQuickWindow*>(engine.rootObjects().value(0));
+        auto const keys = qEnvironmentVariable("CUMTEMPORE_KEYS").split(u' ', Qt::SkipEmptyParts);
+        QTimer::singleShot(500, &app, [window, keys]() {
+            for (auto const& keyName : keys)
+            {
+                auto const combination = QKeySequence::fromString(keyName)[0];
+                QKeyEvent press(QEvent::KeyPress, combination.key(), combination.keyboardModifiers(), keyName.size() == 1 ? keyName : QString());
+                QKeyEvent release(QEvent::KeyRelease, combination.key(), combination.keyboardModifiers(), keyName.size() == 1 ? keyName : QString());
+                QCoreApplication::sendEvent(window, &press);
+                QCoreApplication::sendEvent(window, &release);
+            }
+        });
+        auto const delay = qEnvironmentVariableIntValue("CUMTEMPORE_SCREENSHOT_DELAY");
+        QTimer::singleShot(delay > 0 ? delay : 1500, &app, [window, screenshotPath]() {
+            if (window != nullptr)
             {
                 window->grabWindow().save(screenshotPath);
             }

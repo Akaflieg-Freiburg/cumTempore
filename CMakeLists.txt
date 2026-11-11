@@ -44,3 +44,8 @@ else ()
 endif ()
 
 add_subdirectory(src)
+
+if (CUMTEMPORE_BUILD_TESTS AND NOT (ANDROID OR IOS OR EMSCRIPTEN))
+    enable_testing()
+    add_subdirectory(tests)
+endif ()

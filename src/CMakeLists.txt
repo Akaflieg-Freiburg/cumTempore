@@ -11,6 +11,8 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
     APP_ID="${APP_ID}"
 )
 
+target_include_directories(${PROJECT_NAME} PRIVATE timer)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Gui
     Qt6::Quick
@@ -26,20 +28,31 @@ qt_add_qml_module(${PROJECT_NAME}
     VERSION 1.0
     QML_FILES
         qml/CenteringDialog.qml
+        qml/CircleButton.qml
         qml/DecoratedScrollView.qml
         qml/LongTextDialog.qml
         qml/Main.qml
+        qml/ProgressRing.qml
         qml/Style.qml
         qml/TimerPage.qml
+        qml/TimerRunningView.qml
+        qml/TimerSetView.qml
         qml/WallClockPage.qml
+    SOURCES
+        timer/CountdownTimer.cpp
+        timer/CountdownTimer.h
 )
 
 qt_add_resources(${PROJECT_NAME} "images"
     PREFIX "/"
     FILES
+        images/ic_backspace_24px.svg
         images/ic_help_24px.svg
         images/ic_info_24px.svg
         images/ic_menu_24px.svg
+        images/ic_pause_24px.svg
+        images/ic_play_arrow_24px.svg
+        images/ic_replay_24px.svg
 )
 
 # Fonts: Airbus B612 (tabular digits), SIL Open Font License, see 3rdParty/fonts/OFL.txt
