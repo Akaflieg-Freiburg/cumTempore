@@ -1,0 +1,68 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}"
+        },
+        {
+            "name": "linux-debug",
+            "displayName": "Linux debug (clang, ASan/UBSan)",
+            "inherits": "base",
+            "toolchainFile": "$env{Qt6_DIR_LINUX}/lib/cmake/Qt6/qt.toolchain.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer",
+                "CMAKE_EXE_LINKER_FLAGS": "-fsanitize=address,undefined"
+            }
+        },
+        {
+            "name": "linux-release",
+            "displayName": "Linux release",
+            "inherits": "base",
+            "toolchainFile": "$env{Qt6_DIR_LINUX}/lib/cmake/Qt6/qt.toolchain.cmake",
+            "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+        },
+        {
+            "name": "android",
+            "displayName": "Android arm64-v8a (signed if QT_ANDROID_KEYSTORE_* is set)",
+            "inherits": "base",
+            "toolchainFile": "$env{Qt6_DIR_BASE}/android_arm64_v8a/lib/cmake/Qt6/qt.toolchain.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "QT_HOST_PATH": "$env{Qt6_DIR_LINUX}",
+                "ANDROID_SDK_ROOT": "$env{ANDROID_SDK_ROOT}",
+                "ANDROID_NDK_ROOT": "$env{ANDROID_NDK_ROOT}",
+                "ANDROID_PLATFORM": "android-28"
+            }
+        },
+        {
+            "name": "wasm",
+            "displayName": "WebAssembly (single-threaded)",
+            "inherits": "base",
+            "toolchainFile": "$env{Qt6_DIR_WASM}/lib/cmake/Qt6/qt.toolchain.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "QT_HOST_PATH": "$env{Qt6_DIR_LINUX}"
+            }
+        }
+    ],
+    "buildPresets": [
+        { "name": "linux-debug", "configurePreset": "linux-debug" },
+        { "name": "linux-release", "configurePreset": "linux-release" },
+        { "name": "android", "configurePreset": "android" },
+        { "name": "wasm", "configurePreset": "wasm" }
+    ],
+    "testPresets": [
+        {
+            "name": "linux-debug",
+            "configurePreset": "linux-debug",
+            "output": { "outputOnFailure": true },
+            "environment": { "QT_QPA_PLATFORM": "offscreen" }
+        }
+    ]
+}

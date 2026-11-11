@@ -1,0 +1,13 @@
+**/.DS_Store
+**/.qmlls.ini
+.claude/settings.local.json
+.vscode
+CMakeLists.txt.user
+CMakeUserPresets.json
+build
+fastlane/README.md
+fastlane/api-key-googlePlay.json
+fastlane/report.xml
+website/public
+website/resources
+website/.hugo_build.lock
