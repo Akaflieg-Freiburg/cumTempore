@@ -1,0 +1,1 @@
+orologio,timer,lezione,conferenza,presentazione,conto alla rovescia

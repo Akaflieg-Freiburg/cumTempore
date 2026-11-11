@@ -1,0 +1,1 @@
+reloj,temporizador,clase,charla,presentación,cuenta atrás,docencia

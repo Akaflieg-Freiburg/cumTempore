@@ -1,0 +1,201 @@
+# fastlane configuration for cumTempore, adapted from "Add Times".
+# Documentation: https://docs.fastlane.tools
+#
+# Environment: Qt6_DIR_BASE (Qt installation with android_* kits),
+# Qt6_DIR_LINUX, Qt6_DIR_MACOS, Qt6_DIR_IOS, ANDROID_SDK_ROOT,
+# ANDROID_NDK_ROOT, QT_ANDROID_KEYSTORE_PATH/_ALIAS/_STORE_PASS/_KEY_PASS.
+
+APPLE_ID = 'de.akafliegfreiburg.cumtempore'
+APPLE_TEAM = '9DX97T4PBT'
+
+# Parse the latest entry of CHANGELOG.md.
+# Returns [version, changelog_text, version_code].
+def latest_changelog_entry
+  matches = File.read("../CHANGELOG.md").scan(/^## \s*\[?(.*?)\]?\s*-\s*.*?\n(.*?)(?=^## |\z)/m)
+  latest_version, changelog_text = matches.first
+  if latest_version.nil? || latest_version.empty?
+    UI.user_error!("Could not find version information in CHANGELOG.md")
+  end
+  major, minor, patch = latest_version.split('.').map(&:to_i)
+  # Keep this formula in sync with PROJECT_VERSION_CODE in the top-level
+  # CMakeLists.txt.
+  version_code = 100000 * major + 1000 * minor + patch
+  [latest_version, changelog_text.strip, version_code]
+end
+
+def require_env(name)
+  value = ENV[name]
+  UI.user_error!("Environment variable #{name} is not set") if value.nil? || value.empty?
+  value
+end
+
+
+default_platform(:android)
+
+platform :android do
+  desc "Build signed Android APK and AAB for all ABIs"
+  lane :build do
+    build_dir = '../build/android-release-all'
+    FileUtils.rm_rf([build_dir, '../build/cumtempore.apk', '../build/cumtempore.aab'])
+
+    qt_base = require_env('Qt6_DIR_BASE')
+    sh("#{qt_base}/android_arm64_v8a/bin/qt-cmake",
+       '-G', 'Ninja',
+       '-DCMAKE_BUILD_TYPE:STRING=Release',
+       "-DQT_HOST_PATH=#{require_env('Qt6_DIR_LINUX')}",
+       '-DANDROID_PLATFORM=android-28',
+       '-DQT_ANDROID_BUILD_ALL_ABIS=ON',
+       '-DQT_ANDROID_SIGN_APK=ON',
+       '-DQT_ANDROID_SIGN_AAB=ON',
+       '-S', '..',
+       '-B', build_dir)
+
+    sh("cmake --build #{build_dir} --target apk")
+    FileUtils.mv("#{build_dir}/src/android-build/build/outputs/apk/release/android-build-release-signed.apk", '../build/cumtempore.apk')
+    sh("cmake --build #{build_dir} --target aab")
+    FileUtils.mv("#{build_dir}/src/android-build/build/outputs/bundle/release/android-build-release.aab", '../build/cumtempore.aab')
+
+    UI.success("Signed APK: #{File.expand_path('../build/cumtempore.apk')}")
+    UI.success("Signed AAB: #{File.expand_path('../build/cumtempore.aab')}")
+  end
+
+  desc "Write the Google Play changelog from CHANGELOG.md"
+  lane :metadata do
+    _version, changelog_text, version_code = latest_changelog_entry
+    if changelog_text.length > 500
+      UI.user_error!("Changelog has #{changelog_text.length} characters; Google Play allows 500")
+    end
+    FileUtils.mkdir_p('metadata/android/en-US/changelogs')
+    File.write("metadata/android/en-US/changelogs/#{version_code}.txt", changelog_text)
+  end
+
+  desc "Validate a new version with Google Play"
+  lane :validate do
+    build
+    metadata
+    upload_to_play_store(aab: 'build/cumtempore.aab', track: 'beta', validate_only: true)
+  end
+
+  desc "Deploy a new version to Google Play - Beta"
+  lane :deployBeta do
+    build
+    metadata
+    upload_to_play_store(aab: 'build/cumtempore.aab', track: 'beta')
+  end
+
+  desc "Promote Beta to Release"
+  lane :promoteBetaToRelease do
+    _version, _changelog_text, version_code = latest_changelog_entry
+    upload_to_play_store(track: 'beta', track_promote_to: 'production', version_code: version_code)
+  end
+end
+
+platform :ios do
+  desc "Generate the Xcode project (archiving and signing happen in the TestFlight lane)"
+  lane :build do
+    FileUtils.rm_rf(['../build/ios-release', '../build/cumtempore.ipa'])
+    sh("#{require_env('Qt6_DIR_IOS')}/bin/qt-cmake",
+       '-G', 'Xcode',
+       "-DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=#{APPLE_TEAM}",
+       '-DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE=Automatic',
+       '-S', '..',
+       '-B', '../build/ios-release')
+  end
+
+  desc "Write the App Store release notes from CHANGELOG.md"
+  lane :metadata do
+    _version, changelog_text, _version_code = latest_changelog_entry
+    FileUtils.mkdir_p('metadata/ios/en-US')
+    File.write('metadata/ios/en-US/release_notes.txt', changelog_text)
+  end
+
+  desc "Upload to TestFlight"
+  lane :TestFlight do
+    build
+    build_app(
+      project: 'build/ios-release/cumtempore.xcodeproj',
+      scheme: 'cumtempore',
+      configuration: 'Release',
+      export_method: 'app-store',
+      output_directory: 'build',
+      output_name: 'cumtempore.ipa',
+      xcargs: '-allowProvisioningUpdates',
+      export_xcargs: '-allowProvisioningUpdates'
+    )
+    upload_to_testflight(app_identifier: APPLE_ID, ipa: 'build/cumtempore.ipa')
+  end
+
+  desc "Submit the latest TestFlight build for App Store review"
+  lane :promoteBetaToRelease do
+    metadata
+    latest_version, _changelog_text, version_code = latest_changelog_entry
+    upload_to_app_store(
+      app_identifier: APPLE_ID,
+      app_version: latest_version,
+      build_number: version_code.to_s,
+      metadata_path: './fastlane/metadata/ios',
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      submit_for_review: true,
+      automatic_release: true,
+      force: true,
+      submission_information: { add_id_info_uses_idfa: false }
+    )
+  end
+end
+
+platform :mac do
+  desc "Build universal macOS bundle (unsigned, not notarized)"
+  lane :build do
+    FileUtils.rm_rf(['../build/macos-release', '../build/cumTempore.app'])
+    sh("#{require_env('Qt6_DIR_MACOS')}/bin/qt-cmake",
+       '-G', 'Ninja',
+       '-DCMAKE_BUILD_TYPE:STRING=Release',
+       '-DCMAKE_INSTALL_PREFIX=../build/',
+       '-DCMAKE_OSX_ARCHITECTURES=x86_64;arm64',
+       '-DCMAKE_OSX_DEPLOYMENT_TARGET=14.0',
+       '-DCUMTEMPORE_BUILD_TESTS=OFF',
+       '-DQTDEPLOY=ON',
+       '-S', '..',
+       '-B', '../build/macos-release')
+    sh('cmake --build ../build/macos-release')
+    sh('cmake --install ../build/macos-release')
+    # Extended attributes interfere with the App Store upload
+    sh('xattr -cr ../build/cumTempore.app')
+  end
+
+  desc "Upload to TestFlight"
+  lane :TestFlight do
+    profile = '../src/macos/cumtempore_for_Mac_App_Store.provisionprofile'
+    unless File.exist?(profile)
+      UI.user_error!("#{profile} is missing. Create a Mac App Store provisioning profile for #{APPLE_ID} in the Apple Developer portal and save it there.")
+    end
+    build
+    sh("cp #{profile} ../build/cumTempore.app/Contents/embedded.provisionprofile")
+    sh('xattr -cr ../build/cumTempore.app')
+    sh("codesign --deep --force --verify --options runtime --entitlements ../src/macos/cumtempore.entitlements --sign \"Apple Distribution: Akademische Fliegergruppe Freiburg i. Br. e. V. (#{APPLE_TEAM})\" ../build/cumTempore.app")
+    # The pkg is for upload only; it cannot be used to install the app
+    sh("xcrun productbuild --sign \"Akademische Fliegergruppe Freiburg i. Br. e. V.\" --component ../build/cumTempore.app /Applications ../build/cumtempore.pkg")
+    FileUtils.rm_rf('../build/cumTempore.app')
+    upload_to_testflight(app_identifier: APPLE_ID, pkg: 'build/cumtempore.pkg')
+  end
+end
+
+desc "Create GitHub release with signed Android APK and AAB"
+lane :gitHubRelease do
+  unless system("which gh > /dev/null 2>&1")
+    UI.user_error!("GitHub CLI not found. Please install it: https://cli.github.com/")
+  end
+
+  sh("fastlane android build")
+  latest_version, changelog_text, _version_code = latest_changelog_entry
+  tag = "v#{latest_version}"
+
+  notes_file = "/tmp/cumtempore_release_notes_#{latest_version}.md"
+  File.write(notes_file, changelog_text)
+  sh("gh release create #{tag} --title 'Version #{latest_version}' --notes-file #{notes_file}")
+  sh("gh release upload #{tag} ../build/cumtempore.apk ../build/cumtempore.aab")
+  FileUtils.rm(notes_file)
+
+  UI.success("Created https://github.com/Akaflieg-Freiburg/cumTempore/releases/tag/#{tag}")
+end

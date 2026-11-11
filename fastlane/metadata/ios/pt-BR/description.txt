@@ -1,0 +1,8 @@
+Um relógio e temporizador simples para controlar o tempo durante aulas e palestras.
+
+• Relógio: a hora local, do tamanho que a tela permitir.
+• Temporizador: uma contagem regressiva no estilo do app Relógio do Google. A tela fica vermelho-escura nos últimos cinco minutos e vermelha quando o tempo acaba. O temporizador então conta o tempo excedido.
+• Deslize para alternar entre relógio e temporizador.
+• A tela permanece ligada enquanto o aplicativo estiver aberto.
+
+A interface é simples, minimalista e funcional. O aplicativo não contém anúncios e não espiona você. O programa é 100% código aberto e escrito sem interesse comercial.

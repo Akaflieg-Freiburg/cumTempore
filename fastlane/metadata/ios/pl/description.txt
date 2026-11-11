@@ -1,0 +1,8 @@
+Prosty zegar z minutnikiem do pilnowania czasu podczas wykładów i wystąpień.
+
+• Zegar: aktualny czas, tak duży, jak pozwala ekran.
+• Minutnik: odliczanie w stylu aplikacji Zegar od Google. W ciągu ostatnich pięciu minut wyświetlacz staje się ciemnoczerwony, a po upływie czasu ekran zmienia kolor na czerwony i minutnik odlicza przekroczony czas.
+• Przesuń palcem, aby przełączać między zegarem a minutnikiem.
+• Ekran pozostaje włączony, dopóki aplikacja jest otwarta.
+
+Interfejs jest prosty, minimalistyczny i funkcjonalny. Aplikacja nie zawiera reklam i nie szpieguje. Program jest w 100% open source i napisany bez celów komercyjnych.

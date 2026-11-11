@@ -1,0 +1,8 @@
+Un reloj y temporizador sencillo para controlar el tiempo durante clases y charlas.
+
+• Reloj: la hora local, tan grande como lo permita la pantalla.
+• Temporizador: una cuenta atrás al estilo de la aplicación Reloj de Google. La pantalla se vuelve rojo oscuro en los últimos cinco minutos y roja cuando se acaba el tiempo. El temporizador cuenta entonces el tiempo excedido.
+• Deslice para cambiar entre reloj y temporizador.
+• La pantalla permanece encendida mientras la aplicación está abierta.
+
+La interfaz es sencilla, minimalista y funcional. La aplicación no contiene anuncios y no le espía. El programa es 100 % código abierto y está escrito sin interés comercial.

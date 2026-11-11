@@ -1,0 +1,1 @@
+relógio,temporizador,aula,palestra,apresentação,contagem regressiva

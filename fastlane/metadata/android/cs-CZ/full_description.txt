@@ -1,0 +1,8 @@
+Jednoduché hodiny s časovačem pro hlídání času během přednášek a prezentací.
+
+• Hodiny: místní čas, tak velký, jak to obrazovka dovolí.
+• Časovač: odpočet ve stylu aplikace Hodiny od Googlu. Během posledních pěti minut se zobrazení zbarví tmavě červeně, po uplynutí času se obrazovka zbarví červeně a časovač počítá překročený čas.
+• Přejetím přepínáte mezi hodinami a časovačem.
+• Obrazovka zůstává zapnutá, dokud je aplikace otevřená.
+
+Rozhraní je jednoduché, minimalistické a funkční. Aplikace neobsahuje reklamy a nešpehuje vás. Program je ze 100 % open source a napsán bez komerčního zájmu.

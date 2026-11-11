@@ -1,0 +1,1 @@
+horloge,minuteur,cours,exposé,présentation,compte à rebours,enseignement

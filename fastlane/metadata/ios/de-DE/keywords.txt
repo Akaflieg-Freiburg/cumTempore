@@ -1,0 +1,1 @@
+Uhr,Timer,Vorlesung,Vortrag,Präsentation,Countdown,Lehre,Redner

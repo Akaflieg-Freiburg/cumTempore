@@ -1,0 +1,1 @@
+zegar,minutnik,wykład,wystąpienie,prezentacja,odliczanie

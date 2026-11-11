@@ -1,0 +1,8 @@
+A simple clock and timer for keeping time while giving university lectures or talks.
+
+• Wall clock: the local time, as large as your screen allows.
+• Timer: a countdown in the style of Google's Clock app. The display turns dark red during the last five minutes, and the screen turns red once you run over time. The timer then counts the overtime.
+• Swipe to switch between clock and timer.
+• The screen stays on while the app is open.
+
+The user interface is designed to be simple, minimalistic and functional. The app contains no advertising and does not spy on you. The program is 100% Open Source and written without commercial interest.

@@ -1,0 +1,8 @@
+Eine einfache Uhr mit Timer, die bei Vorlesungen und Vorträgen hilft, die Zeit im Blick zu behalten.
+
+• Uhr: die aktuelle Uhrzeit, so groß wie es der Bildschirm erlaubt.
+• Timer: ein Countdown im Stil der Uhr-App von Google. In den letzten fünf Minuten wird die Anzeige dunkelrot, bei Überziehung wird der Bildschirm rot und der Timer zählt die überzogene Zeit.
+• Wischen Sie, um zwischen Uhr und Timer zu wechseln.
+• Der Bildschirm bleibt eingeschaltet, solange die App geöffnet ist.
+
+Die Benutzeroberfläche ist einfach, minimalistisch und funktional. Die App enthält keine Werbung und spioniert Sie nicht aus. Das Programm ist zu 100 % Open Source und ohne kommerzielles Interesse geschrieben.

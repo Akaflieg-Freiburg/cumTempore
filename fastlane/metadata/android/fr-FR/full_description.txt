@@ -1,0 +1,8 @@
+Une horloge et un minuteur simples pour garder l'œil sur le temps pendant un cours ou un exposé.
+
+• Horloge : l'heure locale, aussi grande que votre écran le permet.
+• Minuteur : un compte à rebours dans le style de l'application Horloge de Google. L'affichage devient rouge foncé pendant les cinq dernières minutes, et l'écran devient rouge en cas de dépassement. Le minuteur compte alors le temps dépassé.
+• Balayez pour passer de l'horloge au minuteur.
+• L'écran reste allumé tant que l'application est ouverte.
+
+L'interface est simple, minimaliste et fonctionnelle. L'application ne contient pas de publicité et ne vous espionne pas. Le programme est 100 % open source et écrit sans intérêt commercial.

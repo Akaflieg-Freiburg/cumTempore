@@ -1,0 +1,8 @@
+Un semplice orologio con timer per tenere d'occhio il tempo durante lezioni e conferenze.
+
+• Orologio: l'ora locale, grande quanto lo schermo consente.
+• Timer: un conto alla rovescia nello stile dell'app Orologio di Google. Negli ultimi cinque minuti la visualizzazione diventa rosso scuro, allo scadere del tempo lo schermo diventa rosso e il timer conta il tempo in eccesso.
+• Scorri per passare dall'orologio al timer.
+• Lo schermo resta acceso finché l'app è aperta.
+
+L'interfaccia è semplice, minimalista e funzionale. L'app non contiene pubblicità e non ti spia. Il programma è 100% open source e scritto senza interessi commerciali.
