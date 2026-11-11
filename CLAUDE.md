@@ -12,7 +12,7 @@ published by Akaflieg Freiburg. Sibling project and template: "Add Times"
 - App ID `de.akaflieg_freiburg.cavok.cum_tempore`; Apple platforms use
   `de.akafliegfreiburg.cumtempore` (no underscores allowed). Both are set once in the
   top-level `CMakeLists.txt` (`APP_ID`, `APP_ID_APPLE`).
-- Clock font: Airbus B612 Mono (`3rdParty/fonts/`, SIL OFL), registered in `src/main.cpp`.
+- Clock font: Airbus B612 (proportional, but with tabular digits, so clocks do not jitter; B612 Mono was rejected because its colon sits at the left edge of a full-width cell) (`3rdParty/fonts/`, SIL OFL), registered in `src/main.cpp`.
 - Languages: English source + cs de es fr it pl pt (`APP_LANGUAGES` in the top-level
   `CMakeLists.txt`).
 

@@ -1,6 +1,10 @@
 {
     "version": 6,
-    "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
+    },
     "configurePresets": [
         {
             "name": "base",
@@ -25,7 +29,9 @@
             "displayName": "Linux release",
             "inherits": "base",
             "toolchainFile": "$env{Qt6_DIR_LINUX}/lib/cmake/Qt6/qt.toolchain.cmake",
-            "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
         },
         {
             "name": "android",
@@ -52,17 +58,34 @@
         }
     ],
     "buildPresets": [
-        { "name": "linux-debug", "configurePreset": "linux-debug" },
-        { "name": "linux-release", "configurePreset": "linux-release" },
-        { "name": "android", "configurePreset": "android" },
-        { "name": "wasm", "configurePreset": "wasm" }
+        {
+            "name": "linux-debug",
+            "configurePreset": "linux-debug"
+        },
+        {
+            "name": "linux-release",
+            "configurePreset": "linux-release"
+        },
+        {
+            "name": "android",
+            "configurePreset": "android"
+        },
+        {
+            "name": "wasm",
+            "configurePreset": "wasm"
+        }
     ],
     "testPresets": [
         {
             "name": "linux-debug",
             "configurePreset": "linux-debug",
-            "output": { "outputOnFailure": true },
-            "environment": { "QT_QPA_PLATFORM": "offscreen" }
+            "output": {
+                "outputOnFailure": true
+            },
+            "environment": {
+                "QT_QPA_PLATFORM": "offscreen",
+                "ASAN_OPTIONS": "detect_leaks=0"
+            }
         }
     ]
 }

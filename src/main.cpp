@@ -22,6 +22,9 @@
 #include <QLibraryInfo>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
+#include <QQuickWindow>
+#include <QStyleHints>
+#include <QTimer>
 #include <QTranslator>
 
 using namespace Qt::Literals::StringLiterals;
@@ -54,8 +57,20 @@ auto main(int argc, char *argv[]) -> int
     QGuiApplication::setApplicationDisplayName(QCoreApplication::translate("C++ Main Program", "cumTempore", "Application Name"));
 
     // Fonts
-    QFontDatabase::addApplicationFont(u":/fonts/B612Mono-Regular.ttf"_s);
-    QFontDatabase::addApplicationFont(u":/fonts/B612Mono-Bold.ttf"_s);
+    QFontDatabase::addApplicationFont(u":/fonts/B612-Regular.ttf"_s);
+    QFontDatabase::addApplicationFont(u":/fonts/B612-Bold.ttf"_s);
+
+    // Developer aid: CUMTEMPORE_COLOR_SCHEME=dark|light overrides the system
+    // color scheme
+    auto const colorScheme = qEnvironmentVariable("CUMTEMPORE_COLOR_SCHEME");
+    if (colorScheme == u"dark"_s)
+    {
+        QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
+    }
+    else if (colorScheme == u"light"_s)
+    {
+        QGuiApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
+    }
 
 #if defined(Q_OS_WINDOWS)
     QQuickStyle::setStyle(u"Universal"_s);
@@ -66,6 +81,21 @@ auto main(int argc, char *argv[]) -> int
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
                      &app, []() { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.loadFromModule("CumTempore", "Main");
+
+    // Developer aid: CUMTEMPORE_SCREENSHOT=<file.png> saves a screenshot of the
+    // main window after a short delay and quits. Used for checking the UI in
+    // headless environments and for producing store screenshots.
+    auto const screenshotPath = qEnvironmentVariable("CUMTEMPORE_SCREENSHOT");
+    if (!screenshotPath.isEmpty())
+    {
+        QTimer::singleShot(1500, &app, [&engine, screenshotPath]() {
+            if (auto* window = qobject_cast<QQuickWindow*>(engine.rootObjects().value(0)))
+            {
+                window->grabWindow().save(screenshotPath);
+            }
+            QCoreApplication::quit();
+        });
+    }
 
 #if defined(Q_OS_ANDROID)
     QNativeInterface::QAndroidApplication::hideSplashScreen(1);
