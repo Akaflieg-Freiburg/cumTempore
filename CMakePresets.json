@@ -35,7 +35,7 @@
         },
         {
             "name": "android",
-            "displayName": "Android arm64-v8a (signed if QT_ANDROID_KEYSTORE_* is set)",
+            "displayName": "Android arm64-v8a release, signed APK + AAB (needs QT_ANDROID_KEYSTORE_*)",
             "inherits": "base",
             "toolchainFile": "$env{Qt6_DIR_BASE}/android_arm64_v8a/lib/cmake/Qt6/qt.toolchain.cmake",
             "cacheVariables": {
@@ -43,7 +43,19 @@
                 "QT_HOST_PATH": "$env{Qt6_DIR_LINUX}",
                 "ANDROID_SDK_ROOT": "$env{ANDROID_SDK_ROOT}",
                 "ANDROID_NDK_ROOT": "$env{ANDROID_NDK_ROOT}",
-                "ANDROID_PLATFORM": "android-28"
+                "ANDROID_PLATFORM": "android-28",
+                "QT_ANDROID_SIGN_APK": "ON",
+                "QT_ANDROID_SIGN_AAB": "ON"
+            }
+        },
+        {
+            "name": "android-debug",
+            "displayName": "Android arm64-v8a debug (debug-signed, installable)",
+            "inherits": "android",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "QT_ANDROID_SIGN_APK": "OFF",
+                "QT_ANDROID_SIGN_AAB": "OFF"
             }
         },
         {
@@ -69,6 +81,10 @@
         {
             "name": "android",
             "configurePreset": "android"
+        },
+        {
+            "name": "android-debug",
+            "configurePreset": "android-debug"
         },
         {
             "name": "wasm",

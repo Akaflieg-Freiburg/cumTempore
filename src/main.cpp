@@ -45,6 +45,7 @@ auto main(int argc, char *argv[]) -> int
     QCoreApplication::setApplicationName(u"cumTempore"_s);
     QCoreApplication::setApplicationVersion(QStringLiteral(PROJECT_VERSION));
     QGuiApplication::setDesktopFileName(QStringLiteral(APP_ID));
+    QGuiApplication::setWindowIcon(QIcon(u":/icon.png"_s));
 
     // Translators. QTranslator::load(QLocale, ...) walks through the user's
     // list of preferred UI languages and picks the first one available.

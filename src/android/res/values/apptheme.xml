@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- There is no NoActionBar variant of Theme.DeviceDefault.DayNight, so the
+       action bar is disabled explicitly. -->
+  <style name="AppTheme" parent="@android:style/Theme.DeviceDefault.DayNight">
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+</resources>

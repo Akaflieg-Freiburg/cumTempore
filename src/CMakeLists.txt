@@ -94,12 +94,119 @@ qt_add_translations(${PROJECT_NAME}
     NO_GENERATE_PLURALS_TS_FILE
 )
 
+# Program icon, used as window icon
+set_source_files_properties(${PROJECT_SOURCE_DIR}/generatedSources/metadata/${APP_ID}.png PROPERTIES QT_RESOURCE_ALIAS icon.png)
+qt_add_resources(${PROJECT_NAME} "programicon"
+    PREFIX "/"
+    FILES
+        ${PROJECT_SOURCE_DIR}/generatedSources/metadata/${APP_ID}.png
+)
+
 # Qt Quick Controls looks for this file at :/qtquickcontrols2.conf
 qt_add_resources(${PROJECT_NAME} "controlsconf"
     PREFIX "/"
     FILES
         qtquickcontrols2.conf
 )
+
+
+#
+# Android
+#
+
+if (ANDROID)
+    if (NOT ANDROID_PLATFORM STREQUAL "android-28")
+        message(FATAL_ERROR "ANDROID_PLATFORM must be set to android-28, is currently set to ${ANDROID_PLATFORM}")
+    endif ()
+
+    # Assemble the Android package sources in the build directory: static
+    # files from android/, generated icons, and the configured manifest.
+    # configure_file (rather than file(COPY)) makes CMake re-run and refresh
+    # the copies whenever a source file changes.
+    file(GLOB_RECURSE androidFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS android/*)
+    foreach (androidFile ${androidFiles})
+        configure_file(${androidFile} ${androidFile} COPYONLY)
+    endforeach ()
+    file(GLOB_RECURSE androidIcons RELATIVE ${PROJECT_SOURCE_DIR}/generatedSources CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/generatedSources/android/*)
+    foreach (androidIcon ${androidIcons})
+        configure_file(${PROJECT_SOURCE_DIR}/generatedSources/${androidIcon} ${androidIcon} COPYONLY)
+    endforeach ()
+    configure_file(AndroidManifest.xml.in android/AndroidManifest.xml)
+
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/android"
+        QT_ANDROID_PACKAGE_NAME ${APP_ID}
+        QT_ANDROID_APP_NAME ${DISPLAY_NAME}
+        QT_ANDROID_VERSION_NAME ${PROJECT_VERSION}
+        QT_ANDROID_VERSION_CODE ${PROJECT_VERSION_CODE}
+        QT_ANDROID_TARGET_SDK_VERSION 36
+        QT_ANDROID_MIN_SDK_VERSION 28
+    )
+    qt_import_plugins(${PROJECT_NAME}
+        INCLUDE_BY_TYPE imageformats Qt::QSvgPlugin
+        EXCLUDE_BY_TYPE platforminputcontexts qmltooling
+    )
+endif ()
+
+
+#
+# Apple platforms
+#
+
+if (APPLE)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        OUTPUT_NAME ${DISPLAY_NAME}
+        MACOSX_BUNDLE_BUNDLE_NAME ${DISPLAY_NAME}
+        MACOSX_BUNDLE_GUI_IDENTIFIER ${APP_ID_APPLE}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
+        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION_CODE}
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER ${APP_ID_APPLE}
+    )
+endif ()
+
+if (IOS)
+    set(PRODUCT_BUNDLE_IDENTIFIER ${APP_ID_APPLE})
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/ios/Info.plist"
+        QT_IOS_LAUNCH_SCREEN "${CMAKE_CURRENT_SOURCE_DIR}/ios/LaunchScreen.storyboard"
+        XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME AppIcon
+    )
+
+    set(asset_catalog "${CMAKE_CURRENT_SOURCE_DIR}/ios/Assets.xcassets")
+    set(privacy_manifest "${CMAKE_CURRENT_SOURCE_DIR}/ios/PrivacyInfo.xcprivacy")
+    target_sources(${PROJECT_NAME} PRIVATE "${asset_catalog}" "${privacy_manifest}")
+    set_source_files_properties("${asset_catalog}" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY RESOURCE "${privacy_manifest}")
+elseif (APPLE)
+    set(app_icon_macos "${PROJECT_SOURCE_DIR}/generatedSources/macos/cumtempore.icns")
+    set(entitlements "${CMAKE_CURRENT_SOURCE_DIR}/macos/cumtempore.entitlements")
+    set_source_files_properties("${app_icon_macos}" "${entitlements}" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    target_sources(${PROJECT_NAME} PRIVATE "${app_icon_macos}" "${entitlements}")
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/macos/Info.plist"
+        MACOSX_BUNDLE_ICON_FILE cumtempore.icns
+    )
+endif ()
+
+
+#
+# Windows: icon and version information
+#
+
+if (WIN32)
+    configure_file(windows/cumtempore.rc.in cumtempore.rc @ONLY)
+    target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/cumtempore.rc)
+endif ()
+
+
+#
+# WebAssembly
+#
+
+if (EMSCRIPTEN)
+    # Initial memory; the app needs little
+    target_link_options(${PROJECT_NAME} PRIVATE -sINITIAL_MEMORY=64MB)
+endif ()
 
 
 #

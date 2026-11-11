@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+  <id>de.akaflieg_freiburg.cavok.cum_tempore</id>
+  <launchable type="desktop-id">de.akaflieg_freiburg.cavok.cum_tempore.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>cumTempore</name>
+  <summary>Clock and timer for lectures and talks</summary>
+  <summary xml:lang="cs">Hodiny a časovač pro přednášky a prezentace</summary>
+  <summary xml:lang="de">Uhr und Timer für Vorlesungen und Vorträge</summary>
+  <summary xml:lang="es">Reloj y temporizador para clases y charlas</summary>
+  <summary xml:lang="fr">Horloge et minuteur pour cours et exposés</summary>
+  <summary xml:lang="it">Orologio e timer per lezioni e conferenze</summary>
+  <summary xml:lang="pl">Zegar i minutnik na wykłady i wystąpienia</summary>
+  <summary xml:lang="pt">Relógio e temporizador para aulas e palestras</summary>
+  <description>
+    <p>A simple clock and timer for keeping time while giving lectures or talks.
+    Swipe between a wall clock that fills the screen and a countdown timer. The
+    timer turns dark red during the last five minutes, and red once you run
+    over time. The screen stays on while the app is open.</p>
+    <p xml:lang="de">Eine einfache Uhr mit Timer, die bei Vorlesungen und
+    Vorträgen hilft, die Zeit im Blick zu behalten. Wischen Sie zwischen einer
+    bildschirmfüllenden Uhr und einem Countdown-Timer. In den letzten fünf
+    Minuten wird der Timer dunkelrot, bei Überziehung rot. Der Bildschirm bleibt
+    eingeschaltet, solange die App geöffnet ist.</p>
+  </description>
+  <url type="homepage">https://akaflieg-freiburg.github.io/cumTempore</url>
+  <url type="vcs-browser">https://github.com/Akaflieg-Freiburg/cumTempore</url>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="${PROJECT_VERSION}" date="${GIT_DATE}"/>
+  </releases>
+  <developer id="de.akaflieg-freiburg">
+    <name>Akaflieg Freiburg</name>
+  </developer>
+</component>

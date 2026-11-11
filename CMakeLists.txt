@@ -44,6 +44,8 @@ else ()
 endif ()
 
 add_subdirectory(src)
+add_subdirectory(metadata)
+add_subdirectory(generatedSources)
 
 if (CUMTEMPORE_BUILD_TESTS AND NOT (ANDROID OR IOS OR EMSCRIPTEN))
     enable_testing()

@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Application
+Name=cumTempore
+GenericName=Clock and timer for lectures and talks
+GenericName[cs]=Hodiny a časovač pro přednášky a prezentace
+GenericName[de]=Uhr und Timer für Vorlesungen und Vorträge
+GenericName[es]=Reloj y temporizador para clases y charlas
+GenericName[fr]=Horloge et minuteur pour cours et exposés
+GenericName[it]=Orologio e timer per lezioni e conferenze
+GenericName[pl]=Zegar i minutnik na wykłady i wystąpienia
+GenericName[pt]=Relógio e temporizador para aulas e palestras
+Icon=de.akaflieg_freiburg.cavok.cum_tempore
+TryExec=cumtempore
+Exec=cumtempore
+Terminal=false
+Categories=Utility;Clock;
+Keywords=clock;timer;lecture;talk;presentation;countdown;
+X-Purism-FormFactor=Workstation;Mobile;
