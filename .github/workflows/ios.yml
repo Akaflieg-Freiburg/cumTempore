@@ -1,0 +1,55 @@
+name: iOS Simulator
+
+# Unsigned build for the iOS simulator. Install with
+#   unzip cumTempore-iphonesimulator.zip && xcrun simctl install booted cumTempore.app
+
+on:
+  push:
+    branches: [ develop ]
+    paths-ignore:
+      - "**.md"
+      - "website/**"
+      - "fastlane/**"
+      - "metadata/**.xml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Read Qt version
+      run: echo "QT_VERSION=$(cat .github/qt-version)" >> $GITHUB_ENV
+    - name: Install Qt for iOS
+      uses: jurplel/install-qt-action@v4
+      with:
+        cache: true
+        cache-key-prefix: install-qt-action-ios
+        target: ios
+        version: ${{ env.QT_VERSION }}
+        autodesktop: true
+    - name: Configure
+      run: |
+        $QT_ROOT_DIR/bin/qt-cmake -S . -B build -G Xcode -DQT_HOST_PATH="$(dirname "$QT_ROOT_DIR")/macos"
+    - name: Build
+      run: |
+        cmake --build build --config Debug -- -sdk iphonesimulator -arch arm64 CODE_SIGNING_ALLOWED=NO
+    - name: Package
+      run: |
+        cd build/src/Debug-iphonesimulator
+        zip -r -y ../../../cumTempore-iphonesimulator.zip cumTempore.app
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cumTempore-iphonesimulator
+        path: cumTempore-iphonesimulator.zip
+    - name: Upload to developerBuilds
+      if: github.event_name == 'push'
+      run: .github/scripts/upload-developer-build.sh cumTempore-iphonesimulator.zip
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

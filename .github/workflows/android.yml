@@ -1,0 +1,65 @@
+name: Android
+
+# Debug-signed arm64-v8a APK, installable on emulators and by sideloading
+
+on:
+  push:
+    branches: [ develop ]
+    paths-ignore:
+      - "**.md"
+      - "website/**"
+      - "fastlane/**"
+      - "metadata/**.xml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Read Qt version
+      run: echo "QT_VERSION=$(cat .github/qt-version)" >> $GITHUB_ENV
+    - name: Install Qt for Android arm64
+      uses: jurplel/install-qt-action@v4
+      with:
+        cache: true
+        cache-key-prefix: install-qt-action-android
+        target: android
+        arch: android_arm64_v8a
+        version: ${{ env.QT_VERSION }}
+        autodesktop: true
+    - name: Set up Java 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: 17
+    - name: Install NDK and ninja
+      run: |
+        sudo apt-get update && sudo apt-get install -y ninja-build
+        echo "y" | ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --install "ndk;27.2.12479018"
+        echo "ANDROID_NDK_ROOT=${ANDROID_SDK_ROOT}/ndk/27.2.12479018" >> $GITHUB_ENV
+    - name: Configure
+      run: |
+        export Qt6_DIR_BASE="$(dirname "$QT_ROOT_DIR")"
+        export Qt6_DIR_LINUX="$Qt6_DIR_BASE/gcc_64"
+        cmake --preset android-debug
+    - name: Build
+      run: |
+        cmake --build --preset android-debug
+        cmake --build --preset android-debug --target apk
+        cp build/android-debug/src/android-build/cumtempore.apk cumTempore-android-arm64v8a.apk
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cumTempore-android-arm64v8a
+        path: cumTempore-android-arm64v8a.apk
+    - name: Upload to developerBuilds
+      if: github.event_name == 'push'
+      run: .github/scripts/upload-developer-build.sh cumTempore-android-arm64v8a.apk
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

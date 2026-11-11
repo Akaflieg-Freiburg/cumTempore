@@ -1,0 +1,47 @@
+name: Quality checks
+
+# Linux build with warnings as errors and sanitizers, unit tests, QML lint,
+# and a check that the translation files are up to date.
+
+on:
+  push:
+    branches: [ develop, main ]
+    paths-ignore:
+      - "**.md"
+      - "website/**"
+      - "fastlane/**"
+      - "metadata/**.xml"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Read Qt version
+      run: echo "QT_VERSION=$(cat .github/qt-version)" >> $GITHUB_ENV
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        cache: true
+        version: ${{ env.QT_VERSION }}
+    - name: Install build tools
+      run: sudo apt-get update && sudo apt-get install -y ninja-build clang libgl-dev libxkbcommon-dev
+    - name: Configure
+      run: |
+        echo "Qt6_DIR_LINUX=$QT_ROOT_DIR" >> $GITHUB_ENV
+        export Qt6_DIR_LINUX=$QT_ROOT_DIR
+        cmake --preset linux-debug -DCMAKE_COMPILE_WARNING_AS_ERROR=ON
+    - name: Build
+      run: cmake --build --preset linux-debug
+    - name: Unit tests
+      run: ctest --preset linux-debug
+    - name: QML lint
+      run: cmake --build --preset linux-debug --target all_qmllint
+    - name: Translation files up to date
+      run: |
+        cmake --build --preset linux-debug --target update_translations
+        git diff --exit-code src/i18n || (echo "::error::Run the update_translations target and commit the .ts files"; exit 1)
+        if grep -l 'type="unfinished"' src/i18n/*.ts; then echo "::warning::Some translations are unfinished"; fi

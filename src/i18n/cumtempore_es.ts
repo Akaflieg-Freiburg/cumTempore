@@ -4,7 +4,6 @@
 <context>
     <name>C++ Main Program</name>
     <message>
-        <location filename="../main.cpp" line="61"/>
         <source>cumTempore</source>
         <comment>Application Name</comment>
         <translation>cumTempore</translation>
@@ -13,8 +12,6 @@
 <context>
     <name>DecoratedScrollView</name>
     <message>
-        <location filename="../qml/DecoratedScrollView.qml" line="55"/>
-        <location filename="../qml/DecoratedScrollView.qml" line="83"/>
         <source>more</source>
         <translation>más</translation>
     </message>
@@ -22,56 +19,42 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../qml/Main.qml" line="99"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="117"/>
         <source>Quit</source>
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="124"/>
         <source>View</source>
         <translation>Ver</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="139"/>
         <source>Wall Clock</source>
         <translation>Reloj</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="146"/>
         <source>Timer</source>
         <translation>Temporizador</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="154"/>
         <source>Full Screen</source>
         <translation>Pantalla completa</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="164"/>
-        <location filename="../qml/Main.qml" line="179"/>
-        <location filename="../qml/Main.qml" line="288"/>
-        <location filename="../qml/Main.qml" line="305"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="188"/>
-        <location filename="../qml/Main.qml" line="294"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="267"/>
         <source>Menu</source>
         <translation>Menú</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="306"/>
         <source>
 &lt;p&gt;Swipe left or right to switch between the &lt;strong&gt;wall clock&lt;/strong&gt; and
 the &lt;strong&gt;timer&lt;/strong&gt;. On a computer, you can also use the arrow keys.&lt;/p&gt;
@@ -101,7 +84,6 @@ up, the screen turns red and the timer counts the overtime.&lt;/p&gt;
 </translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="332"/>
         <source>
 &lt;h4&gt;Version %1&lt;/h4&gt;
 
@@ -181,7 +163,6 @@ Alemania
 <context>
     <name>Platform</name>
     <message>
-        <location filename="../platform/KeepScreenOn_linux.cpp" line="50"/>
         <source>Showing the clock</source>
         <translation>Mostrando el reloj</translation>
     </message>
@@ -189,22 +170,18 @@ Alemania
 <context>
     <name>TimerRunningView</name>
     <message>
-        <location filename="../qml/TimerRunningView.qml" line="141"/>
         <source>Reset</source>
         <translation>Restablecer</translation>
     </message>
     <message>
-        <location filename="../qml/TimerRunningView.qml" line="152"/>
         <source>Pause</source>
         <translation>Pausa</translation>
     </message>
     <message>
-        <location filename="../qml/TimerRunningView.qml" line="152"/>
         <source>Resume</source>
         <translation>Reanudar</translation>
     </message>
     <message>
-        <location filename="../qml/TimerRunningView.qml" line="164"/>
         <source>Add one minute</source>
         <translation>Añadir un minuto</translation>
     </message>
@@ -212,35 +189,29 @@ Alemania
 <context>
     <name>TimerSetView</name>
     <message>
-        <location filename="../qml/TimerSetView.qml" line="53"/>
         <source>h</source>
         <comment>abbreviation for hours</comment>
         <translation>h</translation>
     </message>
     <message>
-        <location filename="../qml/TimerSetView.qml" line="54"/>
         <source>m</source>
         <comment>abbreviation for minutes</comment>
         <translation>m</translation>
     </message>
     <message>
-        <location filename="../qml/TimerSetView.qml" line="55"/>
         <source>s</source>
         <comment>abbreviation for seconds</comment>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="../qml/TimerSetView.qml" line="96"/>
         <source>No duration set</source>
         <translation>Sin duración</translation>
     </message>
     <message>
-        <location filename="../qml/TimerSetView.qml" line="148"/>
         <source>Delete</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../qml/TimerSetView.qml" line="174"/>
         <source>Start</source>
         <translation>Iniciar</translation>
     </message>

@@ -1,0 +1,51 @@
+name: macOS
+
+# Universal (x86_64 + arm64) app bundle in a disk image, unsigned
+
+on:
+  push:
+    branches: [ develop ]
+    paths-ignore:
+      - "**.md"
+      - "website/**"
+      - "fastlane/**"
+      - "metadata/**.xml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Read Qt version
+      run: echo "QT_VERSION=$(cat .github/qt-version)" >> $GITHUB_ENV
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        cache: true
+        version: ${{ env.QT_VERSION }}
+    - name: Configure
+      run: |
+        $QT_ROOT_DIR/bin/qt-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=14.0 -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" -DCUMTEMPORE_BUILD_TESTS=OFF -S . -B build
+    - name: Build
+      run: cmake --build build
+    - name: Package
+      run: |
+        cp -R build/src/cumTempore.app .
+        $QT_ROOT_DIR/bin/macdeployqt cumTempore.app -qmldir=src/qml -dmg
+        mv cumTempore.dmg cumTempore-macOS-universal.dmg
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cumTempore-macOS-universal
+        path: cumTempore-macOS-universal.dmg
+    - name: Upload to developerBuilds
+      if: github.event_name == 'push'
+      run: .github/scripts/upload-developer-build.sh cumTempore-macOS-universal.dmg
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

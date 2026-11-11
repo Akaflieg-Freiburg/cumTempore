@@ -92,6 +92,8 @@ qt_add_translations(${PROJECT_NAME}
     TS_FILE_DIR i18n
     RESOURCE_PREFIX i18n
     NO_GENERATE_PLURALS_TS_FILE
+    # Without source locations, the .ts files change only when texts change
+    LUPDATE_OPTIONS -locations none
 )
 
 # Program icon, used as window icon

@@ -1,0 +1,54 @@
+name: Windows
+
+# 64-bit build with all Qt libraries deployed, as zip archive
+
+on:
+  push:
+    branches: [ develop ]
+    paths-ignore:
+      - "**.md"
+      - "website/**"
+      - "fastlane/**"
+      - "metadata/**.xml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Read Qt version
+      shell: bash
+      run: echo "QT_VERSION=$(cat .github/qt-version)" >> $GITHUB_ENV
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        cache: true
+        version: ${{ env.QT_VERSION }}
+    - name: Configure
+      run: |
+        # CMake requires forward slashes in the install prefix
+        $prefix = "$env:GITHUB_WORKSPACE/cumTempore" -replace '\\','/'
+        qt-cmake -DQTDEPLOY=ON -DCUMTEMPORE_BUILD_TESTS=OFF -DCMAKE_INSTALL_PREFIX:STRING=$prefix -S . -B build
+    - name: Build
+      run: cmake --build build --config Release
+    - name: Install
+      run: cmake --install build --config Release
+    - name: Package
+      run: Compress-Archive cumTempore cumTempore-windows64.zip
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: cumTempore-windows64
+        path: cumTempore-windows64.zip
+    - name: Upload to developerBuilds
+      if: github.event_name == 'push'
+      shell: bash
+      run: .github/scripts/upload-developer-build.sh cumTempore-windows64.zip
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
