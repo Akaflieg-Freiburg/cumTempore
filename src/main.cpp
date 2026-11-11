@@ -16,6 +16,8 @@
  *   along with this program; if not, see <https://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
+#include "KeepScreenOn.h"
+
 #include <QFontDatabase>
 #include <QGuiApplication>
 #include <QIcon>
@@ -113,6 +115,16 @@ auto main(int argc, char *argv[]) -> int
             QCoreApplication::quit();
         });
     }
+
+    // Keep the screen on. Some platforms drop the request when the app goes
+    // into the background, so it is renewed whenever the app becomes active.
+    Platform::keepScreenOn();
+    QObject::connect(&app, &QGuiApplication::applicationStateChanged, &app, [](Qt::ApplicationState state) {
+        if (state == Qt::ApplicationActive)
+        {
+            Platform::keepScreenOn();
+        }
+    });
 
 #if defined(Q_OS_ANDROID)
     QNativeInterface::QAndroidApplication::hideSplashScreen(1);

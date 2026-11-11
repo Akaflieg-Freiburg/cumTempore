@@ -11,7 +11,27 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
     APP_ID="${APP_ID}"
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE timer)
+target_include_directories(${PROJECT_NAME} PRIVATE platform timer)
+
+# Platform-specific code that keeps the screen on, see platform/KeepScreenOn.h
+target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn.h)
+if (ANDROID)
+    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_android.cpp)
+elseif (IOS)
+    enable_language(OBJCXX)
+    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_ios.mm)
+    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework UIKit")
+elseif (APPLE)
+    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_macos.cpp)
+    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework IOKit" "-framework CoreFoundation")
+elseif (WIN32)
+    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_windows.cpp)
+elseif (EMSCRIPTEN)
+    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_wasm.cpp)
+else ()
+    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_linux.cpp)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::DBus)
+endif ()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Gui
