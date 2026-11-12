@@ -30,6 +30,10 @@ jobs:
       with:
         cache: true
         version: ${{ env.QT_VERSION }}
+        # aqtinstall 3.3.0 (latest release) does not know the per-compiler
+        # repository layout used since Qt 6.11. Use a pinned commit from master
+        # until a release containing the fix is published.
+        aqtsource: git+https://github.com/miurahr/aqtinstall.git@5a49f2b391ae8ee1d3c0dd87f8b33c1d49a4deb7
     - name: Configure
       run: |
         # CMake requires forward slashes in the install prefix

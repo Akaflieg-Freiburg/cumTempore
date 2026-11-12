@@ -31,8 +31,15 @@ jobs:
         cache: true
         cache-key-prefix: install-qt-action-ios
         target: ios
+        # Since Qt 6.12, the iOS kit is split into ios_device,
+        # ios_simulator_arm64 and ios_simulator_x86_64; "ios" is device-only.
+        arch: ios_simulator_arm64
         version: ${{ env.QT_VERSION }}
         autodesktop: true
+        # aqtinstall 3.3.0 does not support the Qt 6.12 iOS split. Pinned to the
+        # head of https://github.com/miurahr/aqtinstall/pull/1048 until it is
+        # merged and released.
+        aqtsource: git+https://github.com/jdpurcell/aqtinstall.git@6f0f842da47c744cdc814cd94da9828d934d7bf0
     - name: Configure
       run: |
         $QT_ROOT_DIR/bin/qt-cmake -S . -B build -G Xcode -DQT_HOST_PATH="$(dirname "$QT_ROOT_DIR")/macos"

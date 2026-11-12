@@ -2,7 +2,8 @@
 # Documentation: https://docs.fastlane.tools
 #
 # Environment: Qt6_DIR_BASE (Qt installation with android_* kits),
-# Qt6_DIR_LINUX, Qt6_DIR_MACOS, Qt6_DIR_IOS, ANDROID_SDK_ROOT,
+# Qt6_DIR_LINUX, Qt6_DIR_MACOS, Qt6_DIR_IOS (the ios_device kit;
+# since Qt 6.12, "ios" no longer contains the simulator), ANDROID_SDK_ROOT,
 # ANDROID_NDK_ROOT, QT_ANDROID_KEYSTORE_PATH/_ALIAS/_STORE_PASS/_KEY_PASS.
 
 APPLE_ID = 'de.akafliegfreiburg.cumtempore'
