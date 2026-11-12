@@ -35,11 +35,14 @@ jobs:
         # ios_simulator_arm64 and ios_simulator_x86_64; "ios" is device-only.
         arch: ios_simulator_arm64
         version: ${{ env.QT_VERSION }}
-        autodesktop: true
         # aqtinstall 3.3.0 does not support the Qt 6.12 iOS split. Pinned to the
         # head of https://github.com/miurahr/aqtinstall/pull/1048 until it is
         # merged and released.
         aqtsource: git+https://github.com/jdpurcell/aqtinstall.git@6f0f842da47c744cdc814cd94da9828d934d7bf0
+        # Installed from git, aqt reports version 0.1.devN, so the action does
+        # not add --autodesktop itself; the macOS host kit is needed for
+        # QT_HOST_PATH.
+        extra: --autodesktop
     - name: Configure
       run: |
         $QT_ROOT_DIR/bin/qt-cmake -S . -B build -G Xcode -DQT_HOST_PATH="$(dirname "$QT_ROOT_DIR")/macos"
