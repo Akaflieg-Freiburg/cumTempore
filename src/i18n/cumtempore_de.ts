@@ -181,7 +181,7 @@ Deutschland
     </message>
     <message>
         <source>Add one minute</source>
-        <translation>Eine Minute hinzufügen</translation>
+        <translation type="vanished">Eine Minute hinzufügen</translation>
     </message>
 </context>
 <context>

@@ -81,9 +81,6 @@ Item {
         case Qt.Key_Backspace:
             countdown.reset()
             return true
-        case Qt.Key_Plus:
-            countdown.addMinute()
-            return true
         }
         return false
     }

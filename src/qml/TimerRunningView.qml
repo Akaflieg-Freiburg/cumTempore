@@ -115,7 +115,7 @@ Item {
         }
     }
 
-    // Controls: reset, start/pause, add a minute
+    // Controls: reset and start/pause
     Item {
         id: controlsArea
 
@@ -126,13 +126,13 @@ Item {
 
         Grid {
             anchors.centerIn: parent
-            columns: view.landscape ? 1 : 3
+            columns: view.landscape ? 1 : 2
             spacing: view.controlsSize * 0.25
             verticalItemAlignment: Grid.AlignVCenter
             horizontalItemAlignment: Grid.AlignHCenter
 
             CircleButton {
-                width: view.controlsSize * 0.75
+                width: view.controlsSize
                 height: width
                 fillColor: view.overtime ? Qt.rgba(1, 1, 1, 0.2) : Style.key
                 textColor: view.overtime ? Style.overtimeText : Style.foreground
@@ -151,18 +151,6 @@ Item {
                 display: CircleButton.IconOnly
                 Accessible.name: view.timer.state === CountdownTimer.Running ? qsTr("Pause") : qsTr("Resume")
                 onClicked: view.timer.toggle()
-            }
-
-            CircleButton {
-                width: view.controlsSize * 0.75
-                height: width
-                fillColor: view.overtime ? Qt.rgba(1, 1, 1, 0.2) : Style.key
-                textColor: view.overtime ? Style.overtimeText : Style.foreground
-                font.pixelSize: diameter * 0.26
-                text: "+1:00"
-                display: CircleButton.TextOnly
-                Accessible.name: qsTr("Add one minute")
-                onClicked: view.timer.addMinute()
             }
         }
     }

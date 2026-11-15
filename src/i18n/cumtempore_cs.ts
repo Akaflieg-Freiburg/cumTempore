@@ -181,7 +181,7 @@ Německo
     </message>
     <message>
         <source>Add one minute</source>
-        <translation>Přidat minutu</translation>
+        <translation type="vanished">Přidat minutu</translation>
     </message>
 </context>
 <context>
