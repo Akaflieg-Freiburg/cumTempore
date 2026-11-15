@@ -199,7 +199,7 @@ Deutschland
     <message>
         <source>s</source>
         <comment>abbreviation for seconds</comment>
-        <translation>s</translation>
+        <translation type="vanished">s</translation>
     </message>
     <message>
         <source>No duration set</source>

@@ -21,11 +21,12 @@ pragma ComponentBehavior: Bound
 import QtQuick
 
 // Duration entry in the style of Google's Clock app: digits typed on the
-// keypad shift in from the right into "00h 00m 00s".
+// keypad shift in from the right into "00h 00m". Talks are timed in whole
+// minutes, so there is no field for seconds.
 Item {
     id: view
 
-    // Up to six digits, HHMMSS, without leading zeros
+    // Up to four digits, HHMM, without leading zeros
     property string digits: ""
 
     signal startRequested()
@@ -35,7 +36,7 @@ Item {
 
     function appendDigits(newDigits: string) {
         var d = (view.digits + newDigits).replace(/^0+/, "")
-        if (d.length <= 6)
+        if (d.length <= 4)
             view.digits = d
         keyRepeater.flashKey(newDigits)
     }
@@ -45,23 +46,22 @@ Item {
         keyRepeater.flashKey("⌫")
     }
 
-    // "00h 00m 00s" as styled text. Digits that have been typed are shown in
+    // "00h 00m" as styled text. Digits that have been typed are shown in
     // the brand color, the leading zeros that have not been typed are grey.
     function displayText() : string {
-        var padded = ("000000" + view.digits).slice(-6)
-        var firstTyped = 6 - view.digits.length
+        var padded = ("0000" + view.digits).slice(-4)
+        var firstTyped = 4 - view.digits.length
         var units = [qsTr("h", "abbreviation for hours"),
-                     qsTr("m", "abbreviation for minutes"),
-                     qsTr("s", "abbreviation for seconds")]
+                     qsTr("m", "abbreviation for minutes")]
         var result = ""
-        for (var group = 0; group < 3; group++) {
+        for (var group = 0; group < 2; group++) {
             for (var i = 2*group; i < 2*group+2; i++) {
                 var c = (i >= firstTyped) ? Style.teal : Style.subdued
                 result += "<font color='" + c + "'>" + padded[i] + "</font>"
             }
             var uc = (2*group+1 >= firstTyped) ? Style.teal : Style.subdued
             result += "<font color='" + uc + "'><small>" + units[group] + "</small></font>"
-            if (group < 2)
+            if (group < 1)
                 result += " "
         }
         return result

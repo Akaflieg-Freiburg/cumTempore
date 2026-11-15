@@ -51,13 +51,15 @@ Developer aids in `src/main.cpp`, used for visual checks and store screenshots:
 
 ```bash
 QT_QPA_PLATFORM=offscreen XDG_CONFIG_HOME=/tmp/cfg \
-  CUMTEMPORE_KEYS="Right 1 3 0 0 0 Return" CUMTEMPORE_SCREENSHOT=/tmp/shot.png \
+  CUMTEMPORE_KEYS="Right 1 3 0 Return" CUMTEMPORE_SCREENSHOT=/tmp/shot.png \
   CUMTEMPORE_SCREENSHOT_DELAY=2500 build/linux-debug/src/cumtempore
 ```
 
 `CUMTEMPORE_KEYS` replays key presses (QKeySequence names), `CUMTEMPORE_COLOR_SCHEME=dark|light`
 overrides the color scheme. Use a separate `XDG_CONFIG_HOME` so that test runs do not touch
-the real settings. Limitations of the offscreen platform: it ignores the color scheme
+the real settings. On macOS, `XDG_CONFIG_HOME` has no effect: settings live in
+`~/Library/Preferences/de.akaflieg_freiburg.cumTempore.plist`; back that file up and
+restore it (`defaults import`) around test runs. Limitations of the offscreen platform: it ignores the color scheme
 override, and Material popups render without background; use the real platform (Wayland)
 for those. The debug preset uses ASan; leak reports on exit come from Qt's GTK theme plugin.
 

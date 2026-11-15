@@ -29,21 +29,22 @@ Item {
 
     readonly property alias timer: countdown
 
-    // Conversion between the keypad digits (HHMMSS, no leading zeros) and
-    // milliseconds. Minutes and seconds above 59 are allowed while typing and
-    // are normalized when the timer starts, as in Google's Clock app.
+    // Conversion between the keypad digits (HHMM, no leading zeros) and
+    // milliseconds. Minutes above 59 are allowed while typing and are
+    // normalized when the timer starts, as in Google's Clock app.
     function msFromDigits(digits: string) : real {
-        var p = ("000000" + digits).slice(-6)
-        return ((parseInt(p.slice(0, 2)) * 60 + parseInt(p.slice(2, 4))) * 60 + parseInt(p.slice(4, 6))) * 1000
+        var p = ("0000" + digits).slice(-4)
+        return (parseInt(p.slice(0, 2)) * 60 + parseInt(p.slice(2, 4))) * 60 * 1000
     }
 
+    // Rounds to whole minutes; durations saved by earlier versions may
+    // contain seconds
     function digitsFromMs(ms: real) : string {
-        var total = Math.max(0, Math.round(ms / 1000))
-        var h = Math.min(99, Math.floor(total / 3600))
-        var m = Math.floor((total % 3600) / 60)
-        var s = total % 60
+        var total = Math.max(0, Math.round(ms / 60000))
+        var h = Math.min(99, Math.floor(total / 60))
+        var m = total % 60
         var pad = (n) => (n < 10 ? "0" : "") + n
-        return String(pad(h) + pad(m) + pad(s)).replace(/^0+/, "")
+        return String(pad(h) + pad(m)).replace(/^0+/, "")
     }
 
     function start() {
