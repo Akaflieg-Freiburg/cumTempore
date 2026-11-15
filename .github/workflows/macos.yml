@@ -36,9 +36,9 @@ jobs:
       run: cmake --build build
     - name: Package
       run: |
-        cp -R build/src/cumTempore.app .
-        $QT_ROOT_DIR/bin/macdeployqt cumTempore.app -qmldir=src/qml -dmg
-        mv cumTempore.dmg cumTempore-macOS-universal.dmg
+        cp -R "build/src/Cum Tempore.app" .
+        $QT_ROOT_DIR/bin/macdeployqt "Cum Tempore.app" -qmldir=src/qml -dmg
+        mv "Cum Tempore.dmg" cumTempore-macOS-universal.dmg
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:

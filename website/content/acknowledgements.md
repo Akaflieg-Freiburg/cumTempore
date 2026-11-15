@@ -2,7 +2,7 @@
 title: "Acknowledgements"
 ---
 
-**cumTempore** uses open source software and fonts:
+**Cum Tempore** uses open source software and fonts:
 
 - The [Qt](https://www.qt.io) framework.
 - The [B612](https://github.com/polarsys/b612) font family, designed by Intactile

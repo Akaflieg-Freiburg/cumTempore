@@ -11,7 +11,7 @@ project(cumtempore
 # underscores in bundle identifiers, hence the separate Apple ID.
 set(APP_ID de.akaflieg_freiburg.cavok.cum_tempore)
 set(APP_ID_APPLE de.akafliegfreiburg.cumtempore)
-set(DISPLAY_NAME "cumTempore")
+set(DISPLAY_NAME "Cum Tempore")
 math(EXPR PROJECT_VERSION_CODE "100000*${PROJECT_VERSION_MAJOR}+1000*${PROJECT_VERSION_MINOR}+${PROJECT_VERSION_PATCH}")
 
 # The language list is used by qt_add_translations and by the Apple lproj

@@ -7,6 +7,8 @@
 # ANDROID_NDK_ROOT, QT_ANDROID_KEYSTORE_PATH/_ALIAS/_STORE_PASS/_KEY_PASS.
 
 APPLE_ID = 'de.akafliegfreiburg.cumtempore'
+# macOS bundle; its file name is DISPLAY_NAME from CMakeLists.txt
+MAC_BUNDLE = '../build/Cum Tempore.app'
 APPLE_TEAM = '9DX97T4PBT'
 
 # Parse the latest entry of CHANGELOG.md.
@@ -148,7 +150,7 @@ end
 platform :mac do
   desc "Build universal macOS bundle (unsigned, not notarized)"
   lane :build do
-    FileUtils.rm_rf(['../build/macos-release', '../build/cumTempore.app'])
+    FileUtils.rm_rf(['../build/macos-release', MAC_BUNDLE])
     sh("#{require_env('Qt6_DIR_MACOS')}/bin/qt-cmake",
        '-G', 'Ninja',
        '-DCMAKE_BUILD_TYPE:STRING=Release',
@@ -162,7 +164,7 @@ platform :mac do
     sh('cmake --build ../build/macos-release')
     sh('cmake --install ../build/macos-release')
     # Extended attributes interfere with the App Store upload
-    sh('xattr -cr ../build/cumTempore.app')
+    sh('xattr', '-cr', MAC_BUNDLE)
   end
 
   desc "Upload to TestFlight"
@@ -172,12 +174,12 @@ platform :mac do
       UI.user_error!("#{profile} is missing. Create a Mac App Store provisioning profile for #{APPLE_ID} in the Apple Developer portal and save it there.")
     end
     build
-    sh("cp #{profile} ../build/cumTempore.app/Contents/embedded.provisionprofile")
-    sh('xattr -cr ../build/cumTempore.app')
-    sh("codesign --deep --force --verify --options runtime --entitlements ../src/macos/cumtempore.entitlements --sign \"Apple Distribution: Akademische Fliegergruppe Freiburg i. Br. e. V. (#{APPLE_TEAM})\" ../build/cumTempore.app")
+    sh('cp', profile, "#{MAC_BUNDLE}/Contents/embedded.provisionprofile")
+    sh('xattr', '-cr', MAC_BUNDLE)
+    sh("codesign --deep --force --verify --options runtime --entitlements ../src/macos/cumtempore.entitlements --sign \"Apple Distribution: Akademische Fliegergruppe Freiburg i. Br. e. V. (#{APPLE_TEAM})\" '#{MAC_BUNDLE}'")
     # The pkg is for upload only; it cannot be used to install the app
-    sh("xcrun productbuild --sign \"Akademische Fliegergruppe Freiburg i. Br. e. V.\" --component ../build/cumTempore.app /Applications ../build/cumtempore.pkg")
-    FileUtils.rm_rf('../build/cumTempore.app')
+    sh("xcrun productbuild --sign \"Akademische Fliegergruppe Freiburg i. Br. e. V.\" --component '#{MAC_BUNDLE}' /Applications ../build/cumtempore.pkg")
+    FileUtils.rm_rf(MAC_BUNDLE)
     upload_to_testflight(app_identifier: APPLE_ID, pkg: 'build/cumtempore.pkg')
   end
 end

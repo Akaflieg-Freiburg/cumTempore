@@ -66,6 +66,8 @@ jobs:
         mkdir -p public/app
         cd build/wasm/src
         cp cumtempore.html cumtempore.js cumtempore.wasm qtloader.js ../../../public/app/
+        # Qt names the page after the CMake target; use the display name
+        sed -i 's|<title>cumtempore</title>|<title>Cum Tempore</title>|' ../../../public/app/cumtempore.html
         # Replace Qt's logo on the loading screen with the program icon
         cp ../../../metadata/de.akaflieg_freiburg.cavok.cum_tempore.svg ../../../public/app/qtlogo.svg
     - name: Upload Pages artifact

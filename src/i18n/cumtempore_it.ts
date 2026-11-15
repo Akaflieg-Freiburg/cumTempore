@@ -4,9 +4,9 @@
 <context>
     <name>C++ Main Program</name>
     <message>
-        <source>cumTempore</source>
+        <source>Cum Tempore</source>
         <comment>Application Name</comment>
-        <translation>cumTempore</translation>
+        <translation>Cum Tempore</translation>
     </message>
 </context>
 <context>

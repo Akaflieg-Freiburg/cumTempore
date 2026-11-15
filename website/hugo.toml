@@ -1,7 +1,7 @@
-# Homepage of cumTempore, deployed to GitHub Pages by .github/workflows/pages.yml.
+# Homepage of Cum Tempore, deployed to GitHub Pages by .github/workflows/pages.yml.
 # Local preview: cd website && hugo server
 baseURL = "https://akaflieg-freiburg.github.io/cumTempore/"
-title = "cumTempore"
+title = "Cum Tempore"
 languageCode = "en"
 disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
 enableRobotsTXT = false

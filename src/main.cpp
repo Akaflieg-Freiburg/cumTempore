@@ -59,7 +59,7 @@ auto main(int argc, char *argv[]) -> int
     {
         QCoreApplication::installTranslator(&qtTranslator);
     }
-    QGuiApplication::setApplicationDisplayName(QCoreApplication::translate("C++ Main Program", "cumTempore", "Application Name"));
+    QGuiApplication::setApplicationDisplayName(QCoreApplication::translate("C++ Main Program", "Cum Tempore", "Application Name"));
 
     // Fonts
     QFontDatabase::addApplicationFont(u":/fonts/B612-Regular.ttf"_s);

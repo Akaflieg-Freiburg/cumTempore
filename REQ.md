@@ -1,4 +1,4 @@
-# cumTempore
+# Cum Tempore
 
 I would like to vibe-code a simple app that I can use to keep the time while giving university lectures or talks.
 

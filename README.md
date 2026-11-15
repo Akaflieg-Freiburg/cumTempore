@@ -1,4 +1,4 @@
-# cumTempore
+# Cum Tempore
 
 A simple clock and timer for keeping time while giving university lectures or talks.
 
@@ -9,6 +9,6 @@ A simple clock and timer for keeping time while giving university lectures or ta
 
 Available for Android, iOS, macOS, Windows and in the web browser (WebAssembly).
 
-cumTempore is free software, licensed under the GNU General Public License,
+Cum Tempore is free software, licensed under the GNU General Public License,
 version 3 or later. The clock font is [B612](https://github.com/polarsys/b612)
 by Airbus, licensed under the SIL Open Font License.

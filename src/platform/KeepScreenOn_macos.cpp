@@ -34,6 +34,6 @@ void Platform::keepScreenOn()
     }
     IOPMAssertionCreateWithName(kIOPMAssertionTypePreventUserIdleDisplaySleep,
                                 kIOPMAssertionLevelOn,
-                                CFSTR("cumTempore keeps the clock visible"),
+                                CFSTR("Cum Tempore keeps the clock visible"),
                                 &assertionID);
 }

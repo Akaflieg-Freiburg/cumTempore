@@ -2,12 +2,12 @@
 title: "Download"
 ---
 
-**cumTempore** is available for Android, iOS, macOS, Windows, and runs directly
+**Cum Tempore** is available for Android, iOS, macOS, Windows, and runs directly
 in your web browser.
 
 ### In your web browser
 
-[Open cumTempore in your browser.](../app/cumtempore.html) The web version keeps
+[Open Cum Tempore in your browser.](../app/cumtempore.html) The web version keeps
 the screen on in browsers that support the Screen Wake Lock API, which includes
 Chrome, Edge, Safari and recent versions of Firefox.
 
@@ -27,7 +27,7 @@ These builds are not signed and may show warnings when you install them.
 ### Add to your website
 
 Add the following code to your website in order to embed a fully functional
-copy of **cumTempore**.
+copy of **Cum Tempore**.
 
 ```html
 <iframe
@@ -42,7 +42,7 @@ copy of **cumTempore**.
 
 ### Source code
 
-Developers who are interested in compiling **cumTempore** themselves find all
+Developers who are interested in compiling **Cum Tempore** themselves find all
 relevant sources on [GitHub](https://github.com/Akaflieg-Freiburg/cumTempore).
 This program builds on the Qt library. The source code for Qt can be found at
 [this URL](https://cplx.vm.uni-freiburg.de/storage/QtSources).

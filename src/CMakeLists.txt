@@ -138,7 +138,7 @@ if (ANDROID)
     set_target_properties(${PROJECT_NAME} PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/android"
         QT_ANDROID_PACKAGE_NAME ${APP_ID}
-        QT_ANDROID_APP_NAME ${DISPLAY_NAME}
+        QT_ANDROID_APP_NAME "${DISPLAY_NAME}"
         QT_ANDROID_VERSION_NAME ${PROJECT_VERSION}
         QT_ANDROID_VERSION_CODE ${PROJECT_VERSION_CODE}
         QT_ANDROID_TARGET_SDK_VERSION 36
@@ -157,8 +157,7 @@ endif ()
 
 if (APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES
-        OUTPUT_NAME ${DISPLAY_NAME}
-        MACOSX_BUNDLE_BUNDLE_NAME ${DISPLAY_NAME}
+        MACOSX_BUNDLE_BUNDLE_NAME "${DISPLAY_NAME}"
         MACOSX_BUNDLE_GUI_IDENTIFIER ${APP_ID_APPLE}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION_CODE}
@@ -169,6 +168,8 @@ endif ()
 if (IOS)
     set(PRODUCT_BUNDLE_IDENTIFIER ${APP_ID_APPLE})
     set_target_properties(${PROJECT_NAME} PROPERTIES
+        # Users never see the bundle's file name on iOS; avoid the space
+        OUTPUT_NAME cumTempore
         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/ios/Info.plist"
         QT_IOS_LAUNCH_SCREEN "${CMAKE_CURRENT_SOURCE_DIR}/ios/LaunchScreen.storyboard"
         XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME AppIcon
@@ -185,6 +186,8 @@ elseif (APPLE)
     set_source_files_properties("${app_icon_macos}" "${entitlements}" PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     target_sources(${PROJECT_NAME} PRIVATE "${app_icon_macos}" "${entitlements}")
     set_target_properties(${PROJECT_NAME} PROPERTIES
+        # The bundle's file name is what Finder shows
+        OUTPUT_NAME "${DISPLAY_NAME}"
         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/macos/Info.plist"
         MACOSX_BUNDLE_ICON_FILE cumtempore.icns
     )

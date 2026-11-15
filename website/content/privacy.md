@@ -4,7 +4,7 @@ title: "Privacy Policies"
 
 ## Privacy policies for the app
 
-The app **cumTempore** has been designed to not send any data to us. We do not
+The app **Cum Tempore** has been designed to not send any data to us. We do not
 track our users. We do not collect data. The app does not access the network.
 
 The app stores the last timer setting, the page you looked at last, and the

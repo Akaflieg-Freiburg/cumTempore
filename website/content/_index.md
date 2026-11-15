@@ -1,8 +1,8 @@
 ---
-title: "cumTempore"
+title: "Cum Tempore"
 ---
 
-**cumTempore** is a simple clock and timer for keeping time while giving
+**Cum Tempore** is a simple clock and timer for keeping time while giving
 university lectures or talks. Put your phone or tablet on the lectern, or open
 the app on your laptop, and keep an eye on the time.
 

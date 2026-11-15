@@ -9,6 +9,10 @@ full-window wall clock and a countdown timer, switched by swiping. GPL-3.0-or-la
 published by Akaflieg Freiburg. Sibling project and template: "Add Times"
 (`../addhoursandminutes`). Requirements are in `REQ.md`.
 
+- User-facing name "Cum Tempore" (`DISPLAY_NAME` in the top-level `CMakeLists.txt`; also
+  store titles, `.desktop`/AppStream, Android `strings.xml`, website, and the macOS bundle
+  `Cum Tempore.app`). `cumTempore`/`cumtempore` remains for the repo, targets, files and
+  identifiers.
 - App ID `de.akaflieg_freiburg.cavok.cum_tempore`; Apple platforms use
   `de.akafliegfreiburg.cumtempore` (no underscores allowed). Both are set once in the
   top-level `CMakeLists.txt` (`APP_ID`, `APP_ID_APPLE`).

@@ -2,7 +2,7 @@
 title: "Contact"
 ---
 
-**cumTempore** was written by Stefan Kebekus as a project of the [Akaflieg
+**Cum Tempore** was written by Stefan Kebekus as a project of the [Akaflieg
 Freiburg](https://akaflieg-freiburg.de) flight club.
 
 Bug reports and suggestions are welcome on
