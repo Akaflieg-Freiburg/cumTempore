@@ -18,7 +18,6 @@
 
 #include "KeepScreenOn.h"
 
-#include <QFontDatabase>
 #include <QGuiApplication>
 #include <QIcon>
 #include <QKeyEvent>
@@ -60,10 +59,6 @@ auto main(int argc, char *argv[]) -> int
         QCoreApplication::installTranslator(&qtTranslator);
     }
     QGuiApplication::setApplicationDisplayName(QCoreApplication::translate("C++ Main Program", "Cum Tempore", "Application Name"));
-
-    // Fonts
-    QFontDatabase::addApplicationFont(u":/fonts/B612-Regular.ttf"_s);
-    QFontDatabase::addApplicationFont(u":/fonts/B612-Bold.ttf"_s);
 
     // Developer aid: CUMTEMPORE_COLOR_SCHEME=dark|light overrides the system
     // color scheme

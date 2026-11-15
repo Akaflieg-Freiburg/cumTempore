@@ -18,8 +18,7 @@ quarter. Lectures announced "c.t." start a quarter of an hour late.
 
 The app has been written by Stefan Kebekus, as a project of [Akaflieg
 Freiburg](https://akaflieg-freiburg.de), a flight club based in Freiburg,
-Germany. Its clock uses [B612](https://github.com/polarsys/b612), the font that
-Airbus designed for aircraft cockpit displays.
+Germany.
 
 ## Not Commercial. Privacy Taken Seriously.
 

@@ -365,9 +365,7 @@ Public License V3</a>.</p>
 <h3>Acknowledgements</h3>
 
 <p>This program builds on a number of open source libraries, including
-<a href='https://www.qt.io'>Qt</a>. The clock font is
-<a href='https://github.com/polarsys/b612'>B612</a> by Airbus, licensed under
-the SIL Open Font License.</p>
+<a href='https://www.qt.io'>Qt</a>.</p>
 ").arg(Application.version)
         // qmllint enable
 

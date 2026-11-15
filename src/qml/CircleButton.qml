@@ -38,7 +38,7 @@ Button {
     focusPolicy: Qt.NoFocus
     flat: true
 
-    font.family: Style.clockFont
+    font.features: Style.clockFontFeatures
     font.pixelSize: Math.max(8, diameter * 0.36)
 
     icon.width: diameter * 0.45

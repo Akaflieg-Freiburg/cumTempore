@@ -120,9 +120,7 @@ Public License V3&lt;/a&gt;.&lt;/p&gt;
 &lt;h3&gt;Acknowledgements&lt;/h3&gt;
 
 &lt;p&gt;This program builds on a number of open source libraries, including
-&lt;a href=&apos;https://www.qt.io&apos;&gt;Qt&lt;/a&gt;. The clock font is
-&lt;a href=&apos;https://github.com/polarsys/b612&apos;&gt;B612&lt;/a&gt; by Airbus, licensed under
-the SIL Open Font License.&lt;/p&gt;
+&lt;a href=&apos;https://www.qt.io&apos;&gt;Qt&lt;/a&gt;.&lt;/p&gt;
 </source>
         <translation>
 &lt;h4&gt;Versione %1&lt;/h4&gt;
@@ -156,7 +154,7 @@ Germania
 
 &lt;h3&gt;Ringraziamenti&lt;/h3&gt;
 
-&lt;p&gt;Questo programma si basa su diverse librerie open source, tra cui &lt;a href=&apos;https://www.qt.io&apos;&gt;Qt&lt;/a&gt;. Il carattere dell&apos;orologio è &lt;a href=&apos;https://github.com/polarsys/b612&apos;&gt;B612&lt;/a&gt; di Airbus, con licenza SIL Open Font License.&lt;/p&gt;
+&lt;p&gt;Questo programma si basa su diverse librerie open source, tra cui &lt;a href=&apos;https://www.qt.io&apos;&gt;Qt&lt;/a&gt;.&lt;/p&gt;
 </translation>
     </message>
 </context>

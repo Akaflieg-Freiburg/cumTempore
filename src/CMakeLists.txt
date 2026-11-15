@@ -75,15 +75,6 @@ qt_add_resources(${PROJECT_NAME} "images"
         images/ic_replay_24px.svg
 )
 
-# Fonts: Airbus B612 (tabular digits), SIL Open Font License, see 3rdParty/fonts/OFL.txt
-qt_add_resources(${PROJECT_NAME} "fonts"
-    PREFIX "/fonts"
-    BASE "${PROJECT_SOURCE_DIR}/3rdParty/fonts"
-    FILES
-        "${PROJECT_SOURCE_DIR}/3rdParty/fonts/B612-Regular.ttf"
-        "${PROJECT_SOURCE_DIR}/3rdParty/fonts/B612-Bold.ttf"
-)
-
 # Translations. The .ts files in i18n/ follow APP_LANGUAGES (via
 # I18N_TRANSLATED_LANGUAGES in the top-level CMakeLists.txt). Update them with
 # the target update_translations.

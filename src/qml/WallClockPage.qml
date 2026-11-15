@@ -44,7 +44,7 @@ Item {
         // Text.Fit shrinks the font from this (absurdly large) size until the
         // text fits the item.
         fontSizeMode: Text.Fit
-        font.family: Style.clockFont
+        font.features: Style.clockFontFeatures
         font.pixelSize: 2000
         minimumPixelSize: 8
 

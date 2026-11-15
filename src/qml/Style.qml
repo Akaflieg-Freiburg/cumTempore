@@ -21,8 +21,9 @@ pragma Singleton
 import QtQuick
 
 QtObject {
-    // Font family of the clock and timer displays (bundled, see main.cpp)
-    readonly property string clockFont: "B612"
+    // OpenType features of the clock and timer displays: tabular (equal-width)
+    // digits, so that clocks do not jitter in proportional system fonts
+    readonly property var clockFontFeatures: ({ "tnum": 1 })
 
     readonly property real fontPixelSize: (Qt.platform.os === "android") ? 1.6*Application.font.pixelSize : 1.2*Application.font.pixelSize
 

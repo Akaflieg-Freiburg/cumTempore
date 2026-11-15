@@ -31,7 +31,7 @@ A simple app, design similar to "Add Times".
 - Screen always stays on, screen savers disabled
 - Translated to all languages that Enroute supports, plus Portuguese
 - App remembers GUI state (wall clock / timer) on restart, remembers timer value last set
-- Clocks use the airbus B361 font
+- Clocks use the system default font, with tabular digits
 
 ## Tech Stack
 

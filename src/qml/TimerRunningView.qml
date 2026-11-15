@@ -85,7 +85,7 @@ Item {
 
             visible: false
             fontSizeMode: Text.Fit
-            font.family: Style.clockFont
+            font.features: Style.clockFontFeatures
             font.pixelSize: 1000
             minimumPixelSize: 8
             text: (view.overtime ? "−" : "") + (Math.abs(view.timer.displaySeconds) >= 3600 ? "00:00:00" : "00:00")
@@ -96,7 +96,7 @@ Item {
 
             anchors.centerIn: ring
 
-            font.family: Style.clockFont
+            font.features: Style.clockFontFeatures
             font.pixelSize: template.fontInfo.pixelSize
             color: view.accentColor
             text: view.format(view.timer.displaySeconds)

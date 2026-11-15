@@ -16,7 +16,9 @@ published by Akaflieg Freiburg. Sibling project and template: "Add Times"
 - App ID `de.akaflieg_freiburg.cavok.cum_tempore`; Apple platforms use
   `de.akafliegfreiburg.cumtempore` (no underscores allowed). Both are set once in the
   top-level `CMakeLists.txt` (`APP_ID`, `APP_ID_APPLE`).
-- Clock font: Airbus B612 (proportional, but with tabular digits, so clocks do not jitter; B612 Mono was rejected because its colon sits at the left edge of a full-width cell) (`3rdParty/fonts/`, SIL OFL), registered in `src/main.cpp`.
+- Clock font: the system default, with the OpenType feature `tnum` (tabular digits, so
+  clocks do not jitter; `Style.clockFontFeatures`). Airbus B612 was bundled earlier and
+  dropped.
 - Languages: English source + cs de es fr it pl pt (`APP_LANGUAGES` in the top-level
   `CMakeLists.txt`).
 
@@ -61,7 +63,7 @@ for those. The debug preset uses ASan; leak reports on exit come from Qt's GTK t
 
 ## Architecture
 
-- `src/main.cpp`: translators, fonts, keep-screen-on, loads `CumTempore/Main.qml`.
+- `src/main.cpp`: translators, keep-screen-on, loads `CumTempore/Main.qml`.
 - `src/qml/`: QML module `CumTempore`. `Main.qml` is a plain `Window` (not
   `ApplicationWindow`, which swallows safe-area margins) with a desktop `MenuBar` or a
   floating burger menu on mobile/WASM, and a `SwipeView` with `WallClockPage` and

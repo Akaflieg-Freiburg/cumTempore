@@ -86,7 +86,7 @@ Item {
 
             textFormat: Text.StyledText
             fontSizeMode: Text.Fit
-            font.family: Style.clockFont
+            font.features: Style.clockFontFeatures
             font.pixelSize: 400
             minimumPixelSize: 8
 
