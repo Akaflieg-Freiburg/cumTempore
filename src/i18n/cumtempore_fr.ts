@@ -63,7 +63,7 @@ the &lt;strong&gt;timer&lt;/strong&gt;. On a computer, you can also use the arro
 
 &lt;p&gt;Type the duration on the keypad. To set a timer for &lt;strong&gt;1 hour and
 30 minutes&lt;/strong&gt;, press &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;,
-&lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Then press the
+&lt;strong&gt;0&lt;/strong&gt;. Then press the
 start button.&lt;/p&gt;
 
 &lt;p&gt;The display turns dark red during the last five minutes. Once the time is
@@ -76,7 +76,7 @@ up, the screen turns red and the timer counts the overtime.&lt;/p&gt;
 
 &lt;h4&gt;Minuteur&lt;/h4&gt;
 
-&lt;p&gt;Saisissez la durée sur le pavé numérique. Pour un minuteur de &lt;strong&gt;1 heure et 30 minutes&lt;/strong&gt;, appuyez sur &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Appuyez ensuite sur le bouton de démarrage.&lt;/p&gt;
+&lt;p&gt;Saisissez la durée sur le pavé numérique. Pour un minuteur de &lt;strong&gt;1 heure et 30 minutes&lt;/strong&gt;, appuyez sur &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Appuyez ensuite sur le bouton de démarrage.&lt;/p&gt;
 
 &lt;p&gt;L&apos;affichage devient rouge foncé pendant les cinq dernières minutes. Une fois le temps écoulé, l&apos;écran devient rouge et le minuteur compte le dépassement.&lt;/p&gt;
 

@@ -63,7 +63,7 @@ the &lt;strong&gt;timer&lt;/strong&gt;. On a computer, you can also use the arro
 
 &lt;p&gt;Type the duration on the keypad. To set a timer for &lt;strong&gt;1 hour and
 30 minutes&lt;/strong&gt;, press &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;,
-&lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Then press the
+&lt;strong&gt;0&lt;/strong&gt;. Then press the
 start button.&lt;/p&gt;
 
 &lt;p&gt;The display turns dark red during the last five minutes. Once the time is
@@ -76,7 +76,7 @@ up, the screen turns red and the timer counts the overtime.&lt;/p&gt;
 
 &lt;h4&gt;Temporizador&lt;/h4&gt;
 
-&lt;p&gt;Introduzca la duración con el teclado. Para un temporizador de &lt;strong&gt;1 hora y 30 minutos&lt;/strong&gt;, pulse &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Después pulse el botón de inicio.&lt;/p&gt;
+&lt;p&gt;Introduzca la duración con el teclado. Para un temporizador de &lt;strong&gt;1 hora y 30 minutos&lt;/strong&gt;, pulse &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Después pulse el botón de inicio.&lt;/p&gt;
 
 &lt;p&gt;La pantalla se vuelve rojo oscuro durante los últimos cinco minutos. Cuando se acaba el tiempo, la pantalla se pone roja y el temporizador cuenta el tiempo excedido.&lt;/p&gt;
 

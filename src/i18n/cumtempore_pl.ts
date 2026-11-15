@@ -63,7 +63,7 @@ the &lt;strong&gt;timer&lt;/strong&gt;. On a computer, you can also use the arro
 
 &lt;p&gt;Type the duration on the keypad. To set a timer for &lt;strong&gt;1 hour and
 30 minutes&lt;/strong&gt;, press &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;,
-&lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Then press the
+&lt;strong&gt;0&lt;/strong&gt;. Then press the
 start button.&lt;/p&gt;
 
 &lt;p&gt;The display turns dark red during the last five minutes. Once the time is
@@ -76,7 +76,7 @@ up, the screen turns red and the timer counts the overtime.&lt;/p&gt;
 
 &lt;h4&gt;Minutnik&lt;/h4&gt;
 
-&lt;p&gt;Wpisz czas na klawiaturze. Aby ustawić minutnik na &lt;strong&gt;1 godzinę i 30 minut&lt;/strong&gt;, naciśnij &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Następnie naciśnij przycisk startu.&lt;/p&gt;
+&lt;p&gt;Wpisz czas na klawiaturze. Aby ustawić minutnik na &lt;strong&gt;1 godzinę i 30 minut&lt;/strong&gt;, naciśnij &lt;strong&gt;1&lt;/strong&gt;, &lt;strong&gt;3&lt;/strong&gt;, &lt;strong&gt;0&lt;/strong&gt;. Następnie naciśnij przycisk startu.&lt;/p&gt;
 
 &lt;p&gt;W ciągu ostatnich pięciu minut wyświetlacz staje się ciemnoczerwony. Po upływie czasu ekran zmienia kolor na czerwony, a minutnik odlicza przekroczony czas.&lt;/p&gt;
 

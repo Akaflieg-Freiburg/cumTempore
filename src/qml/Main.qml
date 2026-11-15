@@ -315,7 +315,7 @@ the <strong>timer</strong>. On a computer, you can also use the arrow keys.</p>
 
 <p>Type the duration on the keypad. To set a timer for <strong>1 hour and
 30 minutes</strong>, press <strong>1</strong>, <strong>3</strong>,
-<strong>0</strong>, <strong>0</strong>, <strong>0</strong>. Then press the
+<strong>0</strong>. Then press the
 start button.</p>
 
 <p>The display turns dark red during the last five minutes. Once the time is
