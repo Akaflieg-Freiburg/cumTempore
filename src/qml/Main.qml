@@ -204,6 +204,10 @@ Window {
         SwipeView {
             id: swipeView
 
+            // Hide the neighbouring pages, which would otherwise show in the
+            // safe area margins (e.g. next to a camera cutout in landscape)
+            clip: true
+
             // Leave a strip at the bottom for the page indicator
             anchors.fill: parent
             anchors.bottomMargin: 20
