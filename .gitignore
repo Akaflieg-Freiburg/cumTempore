@@ -2,6 +2,7 @@
 **/.qmlls.ini
 .claude/settings.local.json
 .vscode
+.qtcreator
 CMakeLists.txt.user
 CMakeUserPresets.json
 build
