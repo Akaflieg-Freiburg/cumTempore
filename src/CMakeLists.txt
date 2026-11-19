@@ -16,7 +16,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE platform timer)
 # Platform-specific code that keeps the screen on, see platform/KeepScreenOn.h
 target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn.h)
 if (ANDROID)
-    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_android.cpp)
+    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_android.cpp platform/StatusBar.h platform/StatusBar_android.cpp)
 elseif (IOS)
     enable_language(OBJCXX)
     target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_ios.mm)

@@ -34,6 +34,9 @@ QtObject {
     readonly property color background: isDark ? "black" : "white"
     // Brand color: wall clock digits, running timer, buttons
     readonly property color teal: isDark ? "#4db6ac" : "teal"
+    // Android status bar, in light and dark mode alike; the status bar icons
+    // are white. Keep in sync with src/android/res/values/colors.xml.
+    readonly property color statusBar: "teal"
     // Text and icons on top of a teal button
     readonly property color tealText: isDark ? "black" : "white"
     // Timer in its last minutes

@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "KeepScreenOn.h"
+#include "StatusBar.h"
 
 #include <QGuiApplication>
 #include <QIcon>
@@ -123,6 +124,19 @@ auto main(int argc, char *argv[]) -> int
     });
 
 #if defined(Q_OS_ANDROID)
+    // White icons on the teal status bar. Qt resets the icon color when the
+    // color scheme changes, and possibly when the app resumes.
+    Platform::useWhiteStatusBarIcons();
+    QObject::connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, &app, []() {
+        Platform::useWhiteStatusBarIcons();
+    });
+    QObject::connect(&app, &QGuiApplication::applicationStateChanged, &app, [](Qt::ApplicationState state) {
+        if (state == Qt::ApplicationActive)
+        {
+            Platform::useWhiteStatusBarIcons();
+        }
+    });
+
     QNativeInterface::QAndroidApplication::hideSplashScreen(1);
 #endif
 

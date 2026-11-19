@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Status bar background on Android 14 and earlier, in light and dark
+         mode alike. Keep in sync with Style.statusBar in src/qml/Style.qml,
+         which paints the status bar area on Android 15 and later. -->
+    <color name="status_bar">#008080</color>
+</resources>

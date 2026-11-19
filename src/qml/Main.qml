@@ -191,6 +191,20 @@ Window {
         }
     }
 
+    // Android 15 and later draw the window below the transparent status bar,
+    // whose height is the top safe area margin. Paint that area teal, as the
+    // theme does for the status bar on earlier versions; there, the margin is
+    // zero and this rectangle is invisible.
+    Rectangle {
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: parent.SafeArea.margins.top
+
+        visible: Qt.platform.os === "android"
+        color: Style.statusBar
+    }
+
     // Content area, inside the safe area of the window and below the menu bar
     Item {
         id: content
