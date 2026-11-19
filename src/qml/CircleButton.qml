@@ -45,6 +45,10 @@ Button {
     icon.height: diameter * 0.45
     icon.color: textColor
 
+    // Haptic feedback on touch-down, as on a phone keyboard. Physical key
+    // presses use flash() below, which does not emit pressed().
+    onPressed: Haptics.keyPress()
+
     // Show the button as pressed for a moment, used as visual feedback for
     // physical key presses
     function flash() {

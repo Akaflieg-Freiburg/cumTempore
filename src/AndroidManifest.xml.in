@@ -9,6 +9,8 @@
     android:versionName="-- %%INSERT_VERSION_NAME%% --"
     android:versionCode="-- %%INSERT_VERSION_CODE%% --"
     android:installLocation="auto">
+  <!-- Haptic feedback for key presses -->
+  <uses-permission android:name="android.permission.VIBRATE"/>
   <supports-screens
       android:anyDensity="true"
       android:largeScreens="true"

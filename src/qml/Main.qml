@@ -264,6 +264,7 @@ Window {
 
                     TapHandler {
                         margin: 8
+                        onPressedChanged: if (pressed) Haptics.keyPress()
                         onTapped: swipeView.setCurrentIndex(parent.index)
                     }
                 }
@@ -284,6 +285,7 @@ Window {
 
             Accessible.name: qsTr("Menu")
 
+            onPressed: Haptics.keyPress()
             onClicked: mainMenu.open()
 
             Menu {
@@ -304,12 +306,14 @@ Window {
                 MenuItem {
                     icon.source: "/images/ic_help_24px.svg"
                     text: qsTr("Help")
+                    onPressed: Haptics.keyPress()
                     onTriggered: helpDialog.open()
                 }
 
                 MenuItem {
                     icon.source: "/images/ic_info_24px.svg"
                     text: qsTr("About")
+                    onPressed: Haptics.keyPress()
                     onTriggered: infoDialog.open()
                 }
             }

@@ -13,23 +13,23 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 
 target_include_directories(${PROJECT_NAME} PRIVATE platform timer)
 
-# Platform-specific code that keeps the screen on, see platform/KeepScreenOn.h
+# Platform-specific code, see platform/KeepScreenOn.h and platform/Haptics.h
 target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn.h)
 if (ANDROID)
-    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_android.cpp platform/StatusBar.h platform/StatusBar_android.cpp)
+    target_sources(${PROJECT_NAME} PRIVATE platform/Haptics_android.cpp platform/KeepScreenOn_android.cpp platform/StatusBar.h platform/StatusBar_android.cpp)
 elseif (IOS)
     enable_language(OBJCXX)
-    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_ios.mm)
+    target_sources(${PROJECT_NAME} PRIVATE platform/Haptics_ios.mm platform/KeepScreenOn_ios.mm)
     target_link_libraries(${PROJECT_NAME} PRIVATE "-framework UIKit")
 elseif (APPLE)
-    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_macos.cpp)
+    target_sources(${PROJECT_NAME} PRIVATE platform/Haptics_none.cpp platform/KeepScreenOn_macos.cpp)
     target_link_libraries(${PROJECT_NAME} PRIVATE "-framework IOKit" "-framework CoreFoundation")
 elseif (WIN32)
-    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_windows.cpp)
+    target_sources(${PROJECT_NAME} PRIVATE platform/Haptics_none.cpp platform/KeepScreenOn_windows.cpp)
 elseif (EMSCRIPTEN)
-    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_wasm.cpp)
+    target_sources(${PROJECT_NAME} PRIVATE platform/Haptics_none.cpp platform/KeepScreenOn_wasm.cpp)
 else ()
-    target_sources(${PROJECT_NAME} PRIVATE platform/KeepScreenOn_linux.cpp)
+    target_sources(${PROJECT_NAME} PRIVATE platform/Haptics_none.cpp platform/KeepScreenOn_linux.cpp)
     target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::DBus)
 endif ()
 
@@ -59,6 +59,7 @@ qt_add_qml_module(${PROJECT_NAME}
         qml/TimerSetView.qml
         qml/WallClockPage.qml
     SOURCES
+        platform/Haptics.h
         timer/CountdownTimer.cpp
         timer/CountdownTimer.h
 )

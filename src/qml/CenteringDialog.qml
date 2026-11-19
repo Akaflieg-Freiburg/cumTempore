@@ -18,13 +18,15 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+import QtQml.Models
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Material
 
 
-
 Dialog {
+    id: dialog
+
     parent: Overlay.overlay
     property real avHeight: parent.height - 2*font.pixelSize - parent.SafeArea.margins.top - parent.SafeArea.margins.bottom
     property real avWidth: parent.width - 2*font.pixelSize - parent.SafeArea.margins.left - parent.SafeArea.margins.right
@@ -51,4 +53,18 @@ Dialog {
     height: Math.min(avHeight, implicitHeight)
     width: Math.min(avWidth, 40*font.pixelSize)
 
+    // Haptic feedback for the buttons in the footer, which Qt creates for the
+    // standardButtons
+    Instantiator {
+        model: (dialog.footer as DialogButtonBox)?.contentChildren ?? []
+
+        delegate: Connections {
+            // Typed as var: Instantiator does not convert the entries of a
+            // list model to a typed required property, the target stays null
+            required property var modelData
+
+            target: modelData
+            function onPressed() { Haptics.keyPress() }
+        }
+    }
 }

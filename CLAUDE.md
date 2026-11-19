@@ -74,7 +74,9 @@ for those. The debug preset uses ASan; leak reports on exit come from Qt's GTK t
 - `src/timer/CountdownTimer`: timer logic in C++, unit-tested in `tests/`. Stores the
   absolute end time in wall-clock milliseconds (monotonic clocks stop while phones sleep).
 - `src/platform/KeepScreenOn_<platform>`: one implementation per OS, chosen in
-  `src/CMakeLists.txt`.
+  `src/CMakeLists.txt`. Likewise `Haptics_<platform>` (QML singleton `Haptics`, key-press
+  feedback in `CircleButton`; Android/iOS only, `_none` elsewhere) and
+  `StatusBar_android` (white status bar icons on the teal status bar).
 - Platform files: `src/android/` + `src/AndroidManifest.xml.in` (no `<uses-sdk>`, no
   `package=`, keep the `%%INSERT_…%%` placeholders; XML comments must not contain `--`),
   `src/ios/`, `src/macos/`, `src/windows/`, `metadata/` (Linux desktop/AppStream, icon SVGs).
